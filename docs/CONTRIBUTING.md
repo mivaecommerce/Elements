@@ -6,7 +6,7 @@ We greatly appreciate and encourage people contributing back into the Elements.
 
 Submit issues to the [issue tracker](https://github.com/mivaecommerce/Elements/issues) for suggestions, recommendations, and bugs.
 
-When submitting issues, please make sure you [utilize the template](https://github.com/mivaecommerce/Elements/docs/ISSUE_TEMPLATE.md) provided by default.
+When submitting issues, please make sure you [utilize the template](https://github.com/mivaecommerce/Elements/blob/master/docs/ISSUE_TEMPLATE.md) provided by default.
 
 **Please note**: If it's an issue that's urgent / you feel you can fix yourself, please feel free to make some changes and submit a [pull request](#pull-requests). We'd love to see your contributions.
 
@@ -14,7 +14,7 @@ When submitting issues, please make sure you [utilize the template](https://gith
 
 0. Create a new local branch for your work.
 0. As early as possible, [create a pull request](https://github.com/mivaecommerce/Elements/pulls). Make sure you give enough information
- in the pull request description ([utilizing the template](https://github.com/mivaecommerce/Elements/docs/PULL_REQUEST_TEMPLATE.md) provided by default), 
+ in the pull request description ([utilizing the template](https://github.com/mivaecommerce/Elements/blob/master/docs/PULL_REQUEST_TEMPLATE.md) provided by default), 
  and add the label `proposal` with any other appropriate label.
 0. Once any conflicts have been fixed and you're ready for your code to be reviewed, remove the `proposal` label and add `for review`.
 0. Get a code review.
