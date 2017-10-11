@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Elements</title>
+	<link href="themes/elements/site-styles.css" rel="stylesheet">
+	<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+	<link rel="manifest" href="manifest.json">
+	<link rel="mask-icon" href="safari-pinned-tab.svg" color="#e92f63">
+	<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+	<header class="u-bg-gray-50 x-site-header" data-cms-block data-cms-content="global/global-header.html"></header>
+	<!-- /.x-site-header -->
+	
+	<main>
+		<div class="o-wrapper">
+			<div class="o-layout">
+				<section class="o-layout__item u-width-9--m  o-layout__last x-site-content">
+					<h1 class="c-heading-bravo u-text-bold">Getting Started</h1>
+					<p>
+						There are two different ways to get started with Elements. Choose the method that is
+						most appropriate to your project and environment.
+					</p>
+					<hr class="c-keyline">
+					<h3 class="c-heading-delta">Clone the repository</h3>
+					<pre class="language-markup">
+						<code><!--
+							git clone https://github.com/mivaecommerce/Elements.git
+						--></code>
+					</pre>
+					<h3 class="c-heading-delta">Download the framework</h3>
+					<p><a class="c-button c-button--secondary c-button--large u-border-square u-text-uppercase c-text-small" href="https://github.com/mivaecommerce/Elements">Download Elements</a></p>
+					<hr class="c-keyline">
+					<!--h2 class="c-heading-charlie">Overriding CSS Variables</h2>
+					<p>
+						A lot of Elements features use CSS Variables. This makes it very easy to override
+						variables and thus you won't have to write more lines of code to modify these features.
+					</p>
+					<p>
+						Copy the variables from <code class="x-inline-code">themes/THEME_NAME/css/settings/FILE.css</code>
+						to your project <code class="x-inline-code">theme.css</code> that you'd like to override.
+					</p>
+					<hr class="c-keyline"-->
+					<h3 class="c-heading-charlie">Conventions</h3>
+					<p>
+						The navigation structure of this site is based on the directory structure you will see once you
+						install the framework in your site.
+					</p>
+					<p>Elements is split into 3 sections:</p>
+					<ul>
+						<li>
+							<strong><code class="x-inline-code">core</code></strong> - Core contains everything except
+							Extensions and theme specific settings. In theory core should remain stable and changes
+							should be minimal. The core is essential to all Elements projects.
+						</li>
+						<li>
+							<strong><code class="x-inline-code">extensions</code></strong> - Extensions contains only
+							Extensions! Generally, extensions are self-contained components which may include HTML, CSS,
+							and/or JavaScript in a name-spaced environment. We recommend including extensions as
+							required to prevent unnecessary CSS and/or JavaScript from being included in a project.
+						</li>
+						<li>
+							<strong><code class="x-inline-code">ui</code></strong> - UI contains only Components.
+							Generally the components are
+							most susceptible to change and keeping them isolated makes maintenance much more efficient.
+							We recommend including components as required to prevent unnecessary CSS being included in a
+							project.
+						</li>
+					</ul>
+					<p>
+						Elements is structured based on <a href="http://www.creativebloq.com/web-design/manage-large-css-projects-itcss-101517528">ITCSS</a>,
+						we split the framework in to several layers:
+					</p>
+					<ul>
+						<!--li>
+							<strong>settings</strong> - Containing global settings such as the default
+							<code class="x-inline-code">font-size</code> and element spacing values, only settings
+							essential to have global access should be stored within the settings layer.
+						</li-->
+						<li>
+							<strong>base</strong> - This is the first layer which outputs any actual CSS. It usually
+							contains CSS resets, font imports etc.
+						</li>
+						<li>
+							<strong>elements</strong> - Elements contains any CSS pertaining to HTML elements such as
+							<code class="x-inline-code">html</code>, <code class="x-inline-code">table</code>, or
+							<code class="x-inline-code">h1</code>.
+						</li>
+						<li>
+							<strong>objects</strong> - Objects is the first layer containing class-based selectors, we
+							prefix objects with <code class="x-inline-code">o-</code>. It should contain any
+							non-cosmetic design patterns styling such as
+							<code class="x-inline-code">.o-container</code>.
+						</li>
+						<li>
+							<strong>components</strong> - The Components layer is where the majority of the CSS will be
+							written. Components handle the cosmetic design patterns and UI elements such as
+							<code class="x-inline-code">.c-table</code> or <code class="x-inline-code">.c-button</code>.
+						</li>
+						<li>
+							<strong>utilities</strong> - The Utilities layer is reserved for styling which will take
+							precedence over other classes. These are generally utilities such as
+							<code class="x-inline-code">.u-inline-block</code> which sets an element to
+							<code class="x-inline-code">display: inline-block</code> or
+							<code class="x-inline-code">.u-text-center</code> which forces
+							<code class="x-inline-code">text-align: center</code>.
+						</li>
+					</ul>
+					<p>
+						Our CSS classes follow the
+						<a class="u-color-primary" href="//getbem.com/introduction/" target="_blank">BEM</a> structure:
+					</p>
+					<pre class="language-markup">
+						<code><!--
+							.<namespace>-<block>[__<element>][--<modifier>]
+						--></code>
+					</pre>
+					<p>Some examples of suitable class names:</p>
+					<pre class="language-markup">
+						<code><!--
+							.c-tile {...}
+							
+							.o-container--wide {...}
+							
+							.is-hidden--large {...}
+							
+							.c-form-list__item--for {...}
+						--></code>
+					</pre>
+					<p>We should NEVER use the following class names:</p>
+					<pre class="language-markup">
+						<code><!--
+							.c-block--modifier__element {...}
+							
+							.c-block__element__element {...}
+							
+							.c-block@medium--modifier {...}
+						--></code>
+					</pre>
+					<hr class="c-keyline">
+					<h3 class="c-heading-charlie">CSS Style Guide</h3>
+					<p>
+						We have established a CSS style guide which helps promote a greater degree of
+						standardization in our code.
+					</p>
+					<p><a class="c-button c-button--primary u-border-square u-text-uppercase c-text-small" href="https://github.com/mivaecommerce/Elements/blob/master/docs/css-style-guide.md" target="_blank">View Our CSS Style Guide</a></p>
+					<hr class="c-keyline">
+				</section>
+				<!-- /.x-site-content -->
+				<nav class="o-layout__item u-width-3--m o-layout__first x-site-navigation" data-cms-block data-cms-content="global/global-navigation.html"></nav>
+				<!-- /.x-site-navigation -->
+			</div>
+		</div>
+	</main>
+	<!-- /.x-site-content -->
+	
+	<footer class="u-bg-gray-50 u-color-white u-font-small x-site-footer" data-cms-block data-cms-content="global/global-footer.html"></footer>
+	<!-- /.x-site-footer -->
+	
+	<script data-cfasync="false" src="themes/elements/ui/js/scripts.js"></script>
+	<!-- Scripts -->
+</body>
+</html>
