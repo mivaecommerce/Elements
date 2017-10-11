@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			});
 		})
 	}({
-		cmsRoot: 'https://raw.githubusercontent.com/mivaecommerce/Elements/master/docs/'
+		cmsRoot: ''
 	});
 
 
