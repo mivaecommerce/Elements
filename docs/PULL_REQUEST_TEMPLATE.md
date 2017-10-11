@@ -36,7 +36,7 @@ What types of changes does your code introduce? Put an `x` in all the boxes that
 
 ## Checklist
 - [ ] All code includes full inline documentation (as per the [stylesheet template](https://github.com/mivaecommerce/Elements/blob/master/docs/stylesheet-template.css)).
-- [ ] All code conforms to the CSS [coding style](https://github.com/mivaecommerce/Elements/css-style-guide.md).
+- [ ] All code conforms to the CSS [coding style](https://github.com/mivaecommerce/Elements/docs/css-style-guide.md).
 - [ ] All new and existing tests passed.
 - [ ] I have added instructions on how to test my changes.
 - [ ] Package version updated.
