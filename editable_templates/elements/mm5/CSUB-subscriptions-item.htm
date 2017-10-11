@@ -1,0 +1,265 @@
+<mvt:if expr="l.settings:subscriptions:total_count EQ 0">
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<p class="x-messages x-messages--info">You have no current subscriptions.</p>
+		</div>
+	</section>
+	<mvt:exit />
+</mvt:if>
+<mvt:if expr="l.settings:subscriptions:total_count GT 1">
+	<section class="u-flex o-layout--align-center o-layout--justify-between o-layout--wrap">
+		<div class="x-display-list-filtering">
+			<nav class="x-display-list-filtering__per-page">
+				<ul class="o-list-bare">
+					<li class="o-list-block__item">
+						<label class="c-form-label u-text-normal">Show:</label>
+					</li>
+					<mvt:if expr="g.Per_Page EQ 12">
+						<li class="o-list-inline__item">
+							<span class="c-button u-bg-gray-40 u-color-white" title="Show 12 Subscriptions Per Page">12</span>
+						</li>
+					<mvt:else>
+						<li class="o-list-inline__item">
+							<a class="c-button" href="&mvte:urls:_self:auto_sep;&Sort_By=&mvte:global:Sort_By;&Per_Page=12" title="Show 12 Wish Lists Per Page">12</a>
+						</li>
+					</mvt:if>
+					<mvt:if expr="g.Per_Page EQ 24">
+						<li class="o-list-inline__item">
+							<span class="c-button u-bg-gray-40 u-color-white" title="Show 24 Subscriptions Per Page">24</span>
+						</li>
+					<mvt:else>
+						<li class="o-list-inline__item">
+							<a class="c-button" href="&mvte:urls:_self:auto_sep;&Sort_By=&mvte:global:Sort_By;&Per_Page=24" title="Show 24 Wish Lists Per Page">24</a>
+						</li>
+					</mvt:if>
+					<mvt:if expr="g.Per_Page EQ -1">
+						<li class="o-list-inline__item">
+							<span class="c-button u-bg-gray-40 u-color-white" title="Show All Subscriptions">All</span>
+						</li>
+					<mvt:else>
+						<li class="o-list-inline__item">
+							<a class="c-button" href="&mvte:urls:_self:auto_sep;&Sort_By=&mvte:global:Sort_By;&Per_Page=-1" title="Show All Wish Lists">All</a>
+						</li>
+					</mvt:if>
+				</ul>
+			</nav>
+		</div>
+		<!-- end .x-display-list-filtering -->
+		<mvt:if expr="l.settings:subscriptions:page_links:last_page GT 1">
+			<nav class="x-pagination">
+				<ul class="o-list-inline">
+					<mvt:if expr="l.settings:subscriptions:page_links:current_page NE 1">
+						<li class="o-list-inline__item">
+							<a class="c-button" href="&mvte:urls:_self:auto_sep;&mvte:subscriptions:page_links:prev_link_params;" title="Go to the previous page.">
+								<span class="u-icon-triangle-left"></span>
+							</a>
+						</li>
+					<mvt:else>
+						<li class="o-list-inline__item">
+							<span class="c-button" title="You are on the first page.">
+								<span class="u-icon-triangle-left"></span>
+							</span>
+						</li>
+					</mvt:if>
+					<mvt:if expr="NOT l.settings:subscriptions:page_links:contains_first">
+						<li class="o-list-inline__item">
+							<a href="&mvte:urls:_self:auto_sep;&mvte:subscriptions:page_links:first_link_params;" title="Go to first page.">1&hellip;</a>
+						</li>
+					</mvt:if>
+					<mvt:foreach iterator="pages" array="wishlists:page_links:pages">
+						<mvt:if expr="l.settings:subscriptions:page_links:current_page EQ l.settings:pages:page_num">
+							<li class="o-list-inline__item">
+								<span class="u-text-bold" title="You are on page &mvte:pages:page_num;.">&mvte:pages:page_num;</span>
+							</li>
+						<mvt:else>
+							<li class="o-list-inline__item">
+								<a href="&mvte:urls:_self:auto_sep;&mvte:pages:link_params;" title="Go to page &mvte:pages:page_num;.">&mvte:pages:page_num;</a>
+							</li>
+						</mvt:if>
+					</mvt:foreach>
+					<mvt:if expr="NOT l.settings:subscriptions:page_links:contains_last">
+						<li class="o-list-inline__item">
+							<a href="&mvte:urls:_self:auto_sep;&mvte:subscriptions:page_links:last_link_params;" title="Go to last page.">&hellip;&mvte:subscriptions:page_links:last_page;</a>
+						</li>
+					</mvt:if>
+					<mvt:if expr="l.settings:subscriptions:page_links:current_page NE l.settings:subscriptions:page_links:last_page">
+						<a class="button cmp-product-list__next-previous cmp-product-list__next-previous--next" href="&mvte:urls:_self:auto_sep;&mvte:subscriptions:page_links:next_link_params;">
+							<span></span>
+							<span class="icon--arrow-right-long"></span>
+						</a>
+						<li class="o-list-inline__item">
+							<a class="c-button" href="&mvte:urls:_self:auto_sep;&mvte:subscriptions:page_links:next_link_params;" title="Go to the next page.">
+								<span class="u-icon-triangle-right"></span>
+							</a>
+						</li>
+					<mvt:else>
+						<li class="o-list-inline__item">
+							<span class="c-button" title="You are on the last page.">
+								<span class="u-icon-triangle-right"></span>
+							</span>
+						</li>
+					</mvt:if>
+				</ul>
+			</nav>
+			<!-- end .x-pagination -->
+		</mvt:if>
+	</section>
+</mvt:if>
+
+<section class="o-layout u-grids-1 u-grids-2--s u-grids-4--l x-product-list">
+	<mvt:foreach iterator="subscription" array="subscriptions:items">
+		<div class="o-layout__item x-product-list__item">
+			<mvt:foreach iterator="item" array="subscription:items">
+				<figure class="x-product-list__figure">
+					<mvt:if expr="ISNULL l.settings:item:imagetypes:main">
+						<mvt:assign name="l.settings:item:src" value="g.theme_path $ '/images/img_coming_soon.png'" />
+					<mvt:else>
+						<mvt:assign name="l.settings:item:src" value="l.settings:item:imagetypes:main" />
+					</mvt:if>
+					<a href="&mvt:item:link;"><img class="x-product-list__image" src="&mvt:item:src;" alt="&mvte:item:name;"></a>
+					<figcaption>
+						<div class="x-messages x-messages--info u-text-center">
+							<mvt:if expr="l.settings:subscription:nextdate EQ 0">
+								Next Shipment: N/A
+							<mvt:else>
+								Next Shipment: &mvt:subscription:formatted_nextdate_date;
+							</mvt:if>
+						</div>
+						<mvt:if expr="( l.settings:subscription:productsubscriptionsettings:can_qty ) OR ( l.settings:subscription:productsubscriptionsettings:can_term ) OR ( l.settings:subscription:productsubscriptionsettings:can_date ) OR ( l.settings:subscription:productsubscriptionsettings:can_cancel )">
+							<mvt:if expr="( l.settings:subscription:productsubscriptionsettings:can_qty ) OR ( l.settings:subscription:productsubscriptionsettings:can_term ) OR ( l.settings:subscription:productsubscriptionsettings:can_date )">
+								<p><a class="c-button c-button--full" href="&mvte:urls:CSBE:auto_sep;Subscription_ID=&mvta:subscription:id;&amp;CSRF_Token=&mvta:global:Basket:csrf_token;">Edit Subscription</a></p>
+							<mvt:else>
+								<p><a class="c-button c-button--full" href="&mvte:urls:CSBE:auto_sep;Subscription_ID=&mvta:subscription:id;&amp;CSRF_Token=&mvta:global:Basket:csrf_token;">View Subscription</a></p>
+							</mvt:if>
+						<mvt:else>
+							<p><a class="c-button c-button--full" href="&mvte:urls:CSBE:auto_sep;Subscription_ID=&mvta:subscription:id;&amp;CSRF_Token=&mvta:global:Basket:csrf_token;">View Subscription</a></p>
+						</mvt:if>
+						<p>
+							<strong>&mvte:item:name;</strong><br>
+							<span class="u-font-small">&mvte:item:code;</span>
+							<mvt:foreach iterator="discount" array="item:discounts">
+								<mvt:if expr="l.settings:discount:display">
+									<span class="u-font-small u-block">&mvt:discount:descrip;: &mvt:discount:formatted_discount;</span>
+								</mvt:if>
+							</mvt:foreach>
+							<mvt:foreach iterator="option" array="item:options">
+								<span class="u-font-small u-block">
+									<mvt:if expr="l.settings:option:option_id">
+										&mvt:option:attr_prompt;: &mvt:option:opt_prompt;
+									<mvt:elseif expr="NOT ISNULL l.settings:option:data">
+										&mvt:option:attr_prompt;: &mvt:option:data;
+									<mvt:elseif expr="NOT ISNULL l.settings:option:data_long">
+										&mvt:option:attr_prompt;: &mvt:option:data_long;
+									<mvt:else>
+										&mvt:option:attr_prompt;
+									</mvt:if>
+								</span>
+								<mvt:foreach iterator="discount" array="option:discounts">
+									<mvt:if expr="l.settings:discount:display">
+										<span class="u-font-small u-block">&mvt:discount:descrip;: &mvt:discount:formatted_discount;</span>
+									</mvt:if>
+								</mvt:foreach>
+							</mvt:foreach>
+						</p>
+						<p>
+							<strong class="u-font-small">Term</strong><br>
+							&mvte:subscription:productsubscriptionterm:descrip;
+						</p>
+						<div class="o-layout u-grids-3">
+							<div class="o-layout__item">
+								<p>
+									<strong class="u-font-small">Quantity</strong><br>
+									&mvte:subscription:quantity;
+								</p>
+							</div>
+							<div class="o-layout__item">
+								<p>
+									<strong class="u-font-small">Price</strong><br>
+									<mvt:if expr="l.settings:item:base_price GT l.settings:item:price">
+										<s>&mvt:item:formatted_base_price;</s><br>
+									</mvt:if>
+									&mvte:item:formatted_price;
+								</p>
+							</div>
+							<div class="o-layout__item">
+								<p>
+									<strong class="u-font-small">Subtotal</strong><br>
+									<mvt:if expr="l.settings:item:subtotal_base_price GT l.settings:item:subtotal">
+										<s>&mvt:item:formatted_subtotal_base_price;</s><br>
+									</mvt:if>
+									&mvte:item:formatted_subtotal;
+								</p>
+							</div>
+						</div>
+						<div class="u-font-small">
+							<mvt:foreach iterator="charge" array="subscription:charges">
+								&mvt:charge:descrip;: &mvt:charge:formatted_disp_amt;<br>
+							</mvt:foreach>
+						</div>
+						<p class="u-text-bold">Estimated Order Total: &mvt:subscription:formatted_display_total;</p>
+					</figcaption>
+				</figure>
+			</mvt:foreach>
+		</div>
+	</mvt:foreach>
+</section>
+<!-- end .x-product-list -->
+
+<mvt:if expr="l.settings:subscriptions:page_links:last_page GT 1">
+	<nav class="x-pagination x-pagination--centered">
+		<ul class="o-list-inline">
+			<mvt:if expr="l.settings:subscriptions:page_links:current_page NE 1">
+				<li class="o-list-inline__item">
+					<a class="c-button" href="&mvte:urls:_self:auto_sep;&mvte:subscriptions:page_links:prev_link_params;" title="Go to the previous page.">
+						<span class="u-icon-triangle-left"></span>
+					</a>
+				</li>
+			<mvt:else>
+				<li class="o-list-inline__item">
+					<span class="c-button" title="You are on the first page.">
+						<span class="u-icon-triangle-left"></span>
+					</span>
+				</li>
+			</mvt:if>
+			<mvt:if expr="NOT l.settings:subscriptions:page_links:contains_first">
+				<li class="o-list-inline__item">
+					<a href="&mvte:urls:_self:auto_sep;&mvte:subscriptions:page_links:first_link_params;" title="Go to first page.">1&hellip;</a>
+				</li>
+			</mvt:if>
+			<mvt:foreach iterator="pages" array="wishlists:page_links:pages">
+				<mvt:if expr="l.settings:subscriptions:page_links:current_page EQ l.settings:pages:page_num">
+					<li class="o-list-inline__item">
+						<span class="u-text-bold" title="You are on page &mvte:pages:page_num;.">&mvte:pages:page_num;</span>
+					</li>
+				<mvt:else>
+					<li class="o-list-inline__item">
+						<a href="&mvte:urls:_self:auto_sep;&mvte:pages:link_params;" title="Go to page &mvte:pages:page_num;.">&mvte:pages:page_num;</a>
+					</li>
+				</mvt:if>
+			</mvt:foreach>
+			<mvt:if expr="NOT l.settings:subscriptions:page_links:contains_last">
+				<li class="o-list-inline__item">
+					<a href="&mvte:urls:_self:auto_sep;&mvte:subscriptions:page_links:last_link_params;" title="Go to last page.">&hellip;&mvte:subscriptions:page_links:last_page;</a>
+				</li>
+			</mvt:if>
+			<mvt:if expr="l.settings:subscriptions:page_links:current_page NE l.settings:subscriptions:page_links:last_page">
+				<a class="button cmp-product-list__next-previous cmp-product-list__next-previous--next" href="&mvte:urls:_self:auto_sep;&mvte:subscriptions:page_links:next_link_params;">
+					<span></span>
+					<span class="icon--arrow-right-long"></span>
+				</a>
+				<li class="o-list-inline__item">
+					<a class="c-button" href="&mvte:urls:_self:auto_sep;&mvte:subscriptions:page_links:next_link_params;" title="Go to the next page.">
+						<span class="u-icon-triangle-right"></span>
+					</a>
+				</li>
+			<mvt:else>
+				<li class="o-list-inline__item">
+					<span class="c-button" title="You are on the last page.">
+						<span class="u-icon-triangle-right"></span>
+					</span>
+				</li>
+			</mvt:if>
+		</ul>
+	</nav>
+	<!-- end .x-pagination -->
+</mvt:if>

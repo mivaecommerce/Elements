@@ -1,0 +1,219 @@
+<mvt:if expr="l.settings:category_listing:products_on_page_count GT 1">
+	<section class="u-flex o-layout--align-center o-layout--justify-between o-layout--wrap">
+		<div class="x-display-list-filtering">
+			<nav class="x-display-list-filtering__per-page">
+				<ul class="o-list-bare">
+					<li class="o-list-block__item">
+						<label class="c-form-label u-text-normal">Show:</label>
+					</li>
+					<mvt:if expr="g.Per_Page EQ 12">
+						<li class="o-list-inline__item">
+							<span class="c-button u-bg-gray-40 u-color-white" title="Show 12 Products Per Page">12</span>
+						</li>
+					<mvt:else>
+						<li class="o-list-inline__item">
+							<a class="c-button" href="&mvte:urls:_self:auto_sep;Search=&mvte:global:Search;&Sort_By=&mvte:global:Sort_By;&Per_Page=12" title="Show 12 Products Per Page">12</a>
+						</li>
+					</mvt:if>
+					<mvt:if expr="g.Per_Page EQ 24">
+						<li class="o-list-inline__item">
+							<span class="c-button u-bg-gray-40 u-color-white" title="Show 12 Products Per Page">24</span>
+						</li>
+					<mvt:else>
+						<li class="o-list-inline__item">
+							<a class="c-button" href="&mvte:urls:_self:auto_sep;Search=&mvte:global:Search;&Sort_By=&mvte:global:Sort_By;&Per_Page=24" title="Show 24 Products Per Page">24</a>
+						</li>
+					</mvt:if>
+					<mvt:if expr="g.Per_Page EQ -1">
+						<li class="o-list-inline__item">
+							<span class="c-button u-bg-gray-40 u-color-white" title="Show All Products">All</span>
+						</li>
+					<mvt:else>
+						<li class="o-list-inline__item">
+							<a class="c-button" href="&mvte:urls:_self:auto_sep;Search=&mvte:global:Search;&Sort_By=&mvte:global:Sort_By;&Per_Page=-1" title="Show All Products">All</a>
+						</li>
+					</mvt:if>
+				</ul>
+			</nav>
+			<form class="x-display-list-filtering__sort-by">
+				<fieldset>
+					<legend>Sort Products By</legend>
+					<ul class="c-form-list">
+						<li class="c-form-list__item">
+							<label class="c-form-label u-text-normal" for="l-sort_by">Sort By:</label>
+							<div class="c-form-select">
+								<select id="l-sort_by" class="c-form-select__dropdown" name="Sort_By" onchange="window.location.href='&mvtj:urls:_self:auto_sep;Per_Page=' + encodeURIComponent( '&mvtj:global:Per_Page;' ) + '&amp;Sort_By=' + encodeURIComponent( this.options[ this.selectedIndex ].value ) + '&amp;Search=' + encodeURIComponent( '&mvtj:global:Search;' );">
+									<mvt:if expr="ISNULL g.Sort_By">
+										<option value="disp_order" selected>Default</option>
+									<mvt:else>
+										<option value="disp_order">Default</option>
+									</mvt:if>
+									<mvt:if expr="g.Sort_By EQ 'bestsellers'">
+										<option value="bestsellers" selected>Best Selling</option>
+									<mvt:else>
+										<option value="bestsellers">Best Selling</option>
+									</mvt:if>
+									<mvt:if expr="g.Sort_By EQ 'price_asc'">
+										<option value="price_asc" selected>Lowest Price</option>
+									<mvt:else>
+										<option value="price_asc">Lowest Price</option>
+									</mvt:if>
+									<mvt:if expr="g.Sort_By EQ 'price_desc'">
+										<option value="price_desc" selected>Highest Price</option>
+									<mvt:else>
+										<option value="price_desc">Highest Price</option>
+									</mvt:if>
+									<mvt:if expr="g.Sort_By EQ 'newest'">
+										<option value="newest" selected>Newest Items</option>
+									<mvt:else>
+										<option value="newest">Newest Items</option>
+									</mvt:if>
+								</select>
+							</div>
+						</li>
+					</ul>
+				</fieldset>
+			</form>
+		</div>
+		<!-- end .x-display-list-filtering -->
+		<mvt:if expr="l.settings:category_listing:page_links:last_page GT 1">
+			<nav class="x-pagination">
+				<ul class="o-list-inline">
+					<mvt:if expr="l.settings:category_listing:page_links:current_page NE 1">
+						<li class="o-list-inline__item">
+							<a class="c-button" href="&mvte:urls:_self:auto_sep;&mvte:category_listing:page_links:prev_link_params;" title="Go to the previous page.">
+								<span class="u-icon-triangle-left"></span>
+							</a>
+						</li>
+					<mvt:else>
+						<li class="o-list-inline__item">
+							<span class="c-button" title="You are on the first page.">
+								<span class="u-icon-triangle-left"></span>
+							</span>
+						</li>
+					</mvt:if>
+					<mvt:if expr="NOT l.settings:category_listing:page_links:contains_first">
+						<li class="o-list-inline__item">
+							<a href="&mvte:urls:_self:auto_sep;&mvte:category_listing:page_links:first_link_params;" title="Go to first page.">1&hellip;</a>
+						</li>
+					</mvt:if>
+					<mvt:foreach iterator="pages" array="category_listing:page_links:pages">
+						<mvt:if expr="l.settings:category_listing:page_links:current_page EQ l.settings:pages:page_num">
+							<li class="o-list-inline__item">
+								<span class="u-text-bold" title="You are on page &mvte:pages:page_num;.">&mvte:pages:page_num;</span>
+							</li>
+						<mvt:else>
+							<li class="o-list-inline__item">
+								<a href="&mvte:urls:_self:auto_sep;&mvte:pages:link_params;" title="Go to page &mvte:pages:page_num;.">&mvte:pages:page_num;</a>
+							</li>
+						</mvt:if>
+					</mvt:foreach>
+					<mvt:if expr="NOT l.settings:category_listing:page_links:contains_last">
+						<li class="o-list-inline__item">
+							<a href="&mvte:urls:_self:auto_sep;&mvte:category_listing:page_links:last_link_params;" title="Go to last page.">&hellip;&mvte:category_listing:page_links:last_page;</a>
+						</li>
+					</mvt:if>
+					<mvt:if expr="l.settings:category_listing:page_links:current_page NE l.settings:category_listing:page_links:last_page">
+						<a class="button cmp-product-list__next-previous cmp-product-list__next-previous--next" href="&mvte:urls:_self:auto_sep;&mvte:category_listing:page_links:next_link_params;">
+							<span></span>
+							<span class="icon--arrow-right-long"></span>
+						</a>
+						<li class="o-list-inline__item">
+							<a class="c-button" href="&mvte:urls:_self:auto_sep;&mvte:category_listing:page_links:next_link_params;" title="Go to the next page.">
+								<span class="u-icon-triangle-right"></span>
+							</a>
+						</li>
+					<mvt:else>
+						<li class="o-list-inline__item">
+							<span class="c-button" title="You are on the last page.">
+								<span class="u-icon-triangle-right"></span>
+							</span>
+						</li>
+					</mvt:if>
+				</ul>
+			</nav>
+			<!-- end .x-pagination -->
+		</mvt:if>
+	</section>
+</mvt:if>
+
+<section class="o-layout u-grids-1 u-grids-2--s u-grids-4--l x-product-list">
+	<mvt:foreach iterator="product" array="category_listing:products">
+		<div class="o-layout__item u-text-center x-product-list__item">
+			<a class="u-block x-product-list__link" href="&mvte:product:link;" title="&mvte:product:name;">
+				<figure class="x-product-list__figure">
+					<img class="x-product-list__image" src="&mvte:product:imagetypes:main;" alt="&mvte:product:name;">
+					<figcaption>
+						<strong class="x-product-list__name">&mvte:product:name;</strong>
+						<mvt:if expr="l.settings:product:base_price GT l.settings:product:price">
+							<span class="x-product-list__price u-color-gray-30">Was: <s>&mvt:product:formatted_base_price;</s></span>
+							<span class="x-product-list__price u-text-bold u-color-red">Now: &mvt:product:formatted_price;</span>
+						<mvt:else>
+							<span class="x-product-list__price">&mvt:product:formatted_price;</span>
+						</mvt:if>
+					</figcaption>
+				</figure>
+			</a>
+		</div>
+	</mvt:foreach>
+</section>
+<!-- end .x-product-list -->
+
+<mvt:if expr="l.settings:category_listing:page_links:last_page GT 1">
+	<nav class="x-pagination x-pagination--centered">
+		<ul class="o-list-inline">
+			<mvt:if expr="l.settings:category_listing:page_links:current_page NE 1">
+				<li class="o-list-inline__item">
+					<a class="c-button" href="&mvte:urls:_self:auto_sep;&mvte:category_listing:page_links:prev_link_params;" title="Go to the previous page.">
+						<span class="u-icon-triangle-left"></span>
+					</a>
+				</li>
+			<mvt:else>
+				<li class="o-list-inline__item">
+					<span class="c-button" title="You are on the first page.">
+						<span class="u-icon-triangle-left"></span>
+					</span>
+				</li>
+			</mvt:if>
+			<mvt:if expr="NOT l.settings:category_listing:page_links:contains_first">
+				<li class="o-list-inline__item">
+					<a href="&mvte:urls:_self:auto_sep;&mvte:category_listing:page_links:first_link_params;" title="Go to first page.">1&hellip;</a>
+				</li>
+			</mvt:if>
+			<mvt:foreach iterator="pages" array="category_listing:page_links:pages">
+				<mvt:if expr="l.settings:category_listing:page_links:current_page EQ l.settings:pages:page_num">
+					<li class="o-list-inline__item">
+						<span class="u-text-bold" title="You are on page &mvte:pages:page_num;.">&mvte:pages:page_num;</span>
+					</li>
+				<mvt:else>
+					<li class="o-list-inline__item">
+						<a href="&mvte:urls:_self:auto_sep;&mvte:pages:link_params;" title="Go to page &mvte:pages:page_num;.">&mvte:pages:page_num;</a>
+					</li>
+				</mvt:if>
+			</mvt:foreach>
+			<mvt:if expr="NOT l.settings:category_listing:page_links:contains_last">
+				<li class="o-list-inline__item">
+					<a href="&mvte:urls:_self:auto_sep;&mvte:category_listing:page_links:last_link_params;" title="Go to last page.">&hellip;&mvte:category_listing:page_links:last_page;</a>
+				</li>
+			</mvt:if>
+			<mvt:if expr="l.settings:category_listing:page_links:current_page NE l.settings:category_listing:page_links:last_page">
+				<a class="button cmp-product-list__next-previous cmp-product-list__next-previous--next" href="&mvte:urls:_self:auto_sep;&mvte:category_listing:page_links:next_link_params;">
+					<span></span>
+					<span class="icon--arrow-right-long"></span>
+				</a>
+				<li class="o-list-inline__item">
+					<a class="c-button" href="&mvte:urls:_self:auto_sep;&mvte:category_listing:page_links:next_link_params;" title="Go to the next page.">
+						<span class="u-icon-triangle-right"></span>
+					</a>
+				</li>
+			<mvt:else>
+				<li class="o-list-inline__item">
+					<span class="c-button" title="You are on the last page.">
+						<span class="u-icon-triangle-right"></span>
+					</span>
+				</li>
+			</mvt:if>
+		</ul>
+	</nav>
+	<!-- end .x-pagination -->
+</mvt:if>
