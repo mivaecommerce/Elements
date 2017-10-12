@@ -1,10 +1,10 @@
 
-.idea/workspace.xml
-.idea/vcs.xml
-.idea/modules.xml
-.idea/misc.xml
-.idea/jsLibraryMappings.xml
-.idea/encodings.xml
-.idea/Elements.iml
-.idea/dictionaries/mzimmermann.xml
 .idea/deployment.xml
+.idea/dictionaries/mzimmermann.xml
+.idea/Elements.iml
+.idea/encodings.xml
+.idea/jsLibraryMappings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml

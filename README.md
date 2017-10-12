@@ -16,19 +16,19 @@ You can also download Elements from the [Miva AppStore](https://apps.miva.com/el
 
 ## Features
 
-####Extensible
+#### Extensible
 
 Includes the necessary building blocks to create many of the common UX design patterns. Unique components can easily be created by extending the framework.
 
-####BEM-IT-ECSS
+#### BEM-IT-ECSS
 
 Developed with the [BEMIT methodology](https://csswizardry.com/2015/08/bemit-taking-the-bem-naming-convention-a-step-further/) in mind. [BEM](https://getbem.com/introduction/) promotes component modularity, [IT](https://itcss.io/) helps control the architecture, and [ECSS](https://ecss.io/) helps to make extending the framework more manageable.
 
-####Modern Grid
+#### Modern Grid
 
 Elements is an evergreen-browser framework with a modern Flexbox grid system. No more having to remember to clear your floats or use conditional classes.
 
-####Browser Support
+#### Browser Support
 
 Elements uses current coding structures and standards. This framework may not be best suited for you if you are looking to support legacy browsers.
 
