@@ -23,6 +23,31 @@
 				<section class="o-layout__item u-width-9--m  o-layout__last x-site-content">
 					<span id="start-install"></span>
 					<h1 class="c-heading-bravo u-text-bold">Structure</h1>
+					<p>
+						The navigation structure of this site is based on the directory structure you will see once you
+						install the framework in your site.
+					</p>
+					<p>Elements is split into 3 sections:</p>
+					<ul>
+						<li>
+							<strong><code class="x-inline-code">core</code></strong> - Core contains everything except
+							Extensions and theme specific settings. In theory core should remain stable and changes
+							should be minimal. The core is essential to all Elements projects.
+						</li>
+						<li>
+							<strong><code class="x-inline-code">extensions</code></strong> - Extensions contains only
+							Extensions! Generally, extensions are self-contained components which may include HTML, CSS,
+							and/or JavaScript in a name-spaced environment. We recommend including extensions as
+							required to prevent unnecessary CSS and/or JavaScript from being included in a project.
+						</li>
+						<li>
+							<strong><code class="x-inline-code">ui</code></strong> - UI contains only Components.
+							Generally the components are
+							most susceptible to change and keeping them isolated makes maintenance much more efficient.
+							We recommend including components as required to prevent unnecessary CSS being included in a
+							project.
+						</li>
+					</ul>
 					<p>The expanded folder view of the Elements framework will resemble something like this.</p>
 					<pre class="language-markup">
 						<code><!--
