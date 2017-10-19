@@ -50,15 +50,46 @@
 							}
 						--></code>
 					</pre>
-
-
-					<hr class="c-keyline">
-					<h3 class="c-heading-charlie">CSS Style Guide</h3>
 					<p>
-						We have established a CSS style guide which helps promote a greater degree of
-						standardization in our code.
+						Although the core of Elements may not be updated often, it is recommended that all theme based
+						functionality be added to the <code class="x-inline-code">THEME_NAME/ui/js/theme.js</code> file
+						within the proper page function call.
 					</p>
-					<p><a class="c-button c-button--primary u-border-square u-text-uppercase c-text-small" href="https://github.com/mivaecommerce/Elements/blob/master/docs/css-style-guide.md" target="_blank">View Our CSS Style Guide</a></p>
+					<pre class="language-markup">
+						<code><!--
+							/**
+							 * Use this file to all in scripts and functions you would like to have globally or on specific
+							 * pages. You will use this to extend your theme instead of adding code to the core framework files.
+							 */
+							
+							var themeFunctionality = {
+								init: function () {
+								},
+								jsSFNT: function() {
+								},
+								jsCTGY: function() {
+								},
+								jsPROD: function() {
+								},
+								jsPLST: function() {
+								},
+								jsSRCH: function() {
+								},
+								jsBASK: function() {
+								},
+								jsORDL: function() {
+								},
+								jsOCST: function() {
+								},
+								jsOSEL: function() {
+								},
+								jsOPAY: function() {
+								},
+								jsINVC: function() {
+								}
+							};
+						--></code>
+					</pre>
 					<hr class="c-keyline">
 				</section>
 				<!-- /.x-site-content -->
