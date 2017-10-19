@@ -5,13 +5,16 @@ document.addEventListener('DOMContentLoaded', function () {
 	!function (config) {
 		var cmsBlocks = document.querySelectorAll('[data-cms-block]');
 
-		cmsBlocks.forEach(function (block) {
-			var cmsContent = block.getAttribute('data-cms-content');
+		for (var i = 0, len = cmsBlocks.length; i < len; i++) {
+			(function () {
+				var contentBlock = cmsBlocks[i];
+				var cmsContent = contentBlock.getAttribute('data-cms-content');
 
-			loadContent(config.cmsRoot + cmsContent + '?cb=' + (new Date().getTime()), function (html) {
-				block.innerHTML = html;
-			});
-		})
+				loadContent(config.cmsRoot + cmsContent + '?cb=' + (new Date().getTime()), function (html) {
+					contentBlock.innerHTML = html;
+				});
+			})();
+		}
 	}({
 		cmsRoot: ''
 	});

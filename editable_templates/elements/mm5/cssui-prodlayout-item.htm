@@ -12,7 +12,7 @@
 	</figure>
 	<!-- end .x-product-layout-images -->
 	
-	<form class="o-layout__item x-product-layout-purchase" action="&mvte:urls:BASK:auto;" method="post" name="add">
+	<form class="o-layout__item x-product-layout-purchase" data-hook="purchase" action="&mvte:urls:BASK:auto;" method="post" name="add">
 		<input type="hidden" name="Old_Screen" value="&mvte:global:Screen;" />
 		<input type="hidden" name="Old_Search" value="&mvte:global:Search;" />
 		<input type="hidden" name="Action" value="ADPR" />
@@ -25,7 +25,7 @@
 		<input type="hidden" name="SearchOffset" value="&mvte:global:SearchOffset;" />
 		<mvt:comment>
 			<!--
-				This `fieldset` element has been commented out due to a potential bug in the attribute machine 
+				This `fieldset` element has been commented out due to a potential bug in the attribute machine
 				JavaScript which can cause the form functions to not load properly in Internet Explorer and Edge.
 			-->
 		<fieldset>
@@ -85,6 +85,7 @@
 					<mvt:item name="product_attributes" param="product:id" file="PROD-product_attributes-item.htm" />
 				</li>
 				<li class="c-form-list__item c-form-list__item--full x-product-layout-purchase__cta">
+					<div class="x-product-layout-purchase__message" data-hook="purchase-message"></div>
 					<div class="o-layout">
 						<mvt:if expr="l.settings:subscription:enabled AND l.settings:subscription:mandatory">
 							<mvt:if expr="l.settings:product:inv_level NE 'out'">

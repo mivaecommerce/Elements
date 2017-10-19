@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Elements</title>
+	<link href="themes/elements/site-styles.css" rel="stylesheet">
+	<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+	<link rel="manifest" href="manifest.json">
+	<link rel="mask-icon" href="safari-pinned-tab.svg" color="#e92f63">
+	<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+	<header class="u-bg-gray-50 x-site-header" data-cms-block data-cms-content="global/global-header.html"></header>
+	<!-- /.x-site-header -->
+	
+	<main>
+		<div class="o-wrapper">
+			<div class="o-layout">
+				<section class="o-layout__item u-width-9--m  o-layout__last x-site-content">
+					<h1 class="c-heading-bravo u-text-bold">JavaScript</h1>
+					<p>
+						In an effort to have Elements be as lightweight as possible, it <strong>does not</strong> ship
+						with jQuery. Instead, we have chosen to use a jQuery alternative called <a href="https://github.com/kenwheeler/cash" target="_blank">Cash</a>.
+						If Cash is not robust enough for a site built on Elements, it can be replaced with jQuery with
+						no loss of functionality in the core. The majority of JavaScript used in Elements is "vanilla"
+						in nature. We have found this to perform well and work cross-browser.
+					</p>
+					<p>
+						While you can create and call JavaScript function using the familiar <code class="x-inline-code">$('#some_ID')</code>
+						or <code class="x-inline-code">$('.some_CLASS')</code> way, the preferred way in Elements is to
+						use a data attribute called <strong>hook</strong>, <code class="x-inline-code">$.hook('some_data_hook')</code>.
+						Using <code class="x-inline-code">data-hook</code> allows for having multiple possible elements,
+						like when using a <code class="x-inline-code">class</code>.
+					</p>
+					Set a `data-hook` on an element to be called by your function.
+					<pre class="language-markup">
+						<code><!--
+							<button class="c-button" data-hook="open-modal">Open Modal Window</button>
+						--></code>
+					</pre>
+					Use it in your JavaScript
+					<pre class="language-markup">
+						<code><!--
+							$.hook('open-modal).on('click', function () {
+								DO SOMETHING
+							}
+						--></code>
+					</pre>
+
+
+					<hr class="c-keyline">
+					<h3 class="c-heading-charlie">CSS Style Guide</h3>
+					<p>
+						We have established a CSS style guide which helps promote a greater degree of
+						standardization in our code.
+					</p>
+					<p><a class="c-button c-button--primary u-border-square u-text-uppercase c-text-small" href="https://github.com/mivaecommerce/Elements/blob/master/docs/css-style-guide.md" target="_blank">View Our CSS Style Guide</a></p>
+					<hr class="c-keyline">
+				</section>
+				<!-- /.x-site-content -->
+				<nav class="o-layout__item u-width-3--m o-layout__first x-site-navigation" data-cms-block data-cms-content="global/global-navigation.html"></nav>
+				<!-- /.x-site-navigation -->
+			</div>
+		</div>
+	</main>
+	<!-- /.x-site-content -->
+	
+	<footer class="u-bg-gray-50 u-color-white u-font-small x-site-footer" data-cms-block data-cms-content="global/global-footer.html"></footer>
+	<!-- /.x-site-footer -->
+	
+	<script data-cfasync="false" src="themes/elements/ui/js/scripts.js"></script>
+	<!-- Scripts -->
+</body>
+</html>

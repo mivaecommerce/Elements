@@ -171,3 +171,13 @@
 		</mvt:foreach>
 	</tbody>
 </table>
+
+<mvt:if expr="l.settings:order:have_custom_order_field_values">
+	<table class="c-table-simple">
+		<tbody>
+			<tr class="c-table-simple__row">
+				<td class="c-table-simple__cell">Additional Order Information</td>
+			</tr>
+		</tbody>
+	</table>
+</mvt:if>

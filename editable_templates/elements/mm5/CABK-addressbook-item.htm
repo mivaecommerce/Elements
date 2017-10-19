@@ -14,13 +14,21 @@
 				<p class="c-heading-delta"><span class="u-icon-truck"></span> Default Shipping Address</p>
 			</mvt:if>
 			<ul class="o-list-inline u-font-small">
-				<li class="o-list-inline__item"><a href="&mvte:urls:CADE:secure_sep;Address_ID=&mvta:addressbook:address_ship:id;&amp;CSRF_Token=&mvta:global:Basket:csrf_token;">Edit</a></li>
-				<li class="o-list-inline__item"><a href="&mvte:urls:_self:secure_sep;Action=DCSA&amp;Address_ID=&mvta:addressbook:address_ship:id;&amp;CSRF_Token=&mvta:global:Basket:csrf_token;">Delete</a></li>
+				<li class="o-list-inline__item">
+					<a href="&mvte:urls:CADE:secure_sep;Address_ID=&mvta:addressbook:address_ship:id;&amp;CSRF_Token=&mvta:global:Basket:csrf_token;">Edit</a>
+				</li>
+				<li class="o-list-inline__item">
+					<a href="#" onclick="if ( confirm( 'Deleting this address cannot be undone.\\x0A\\x0AContinue?' ) )  MMDynamic_Form_Submit( '&mvtj:urls:_self:secure;', { 'Action': 'DCSA', 'Address_ID': '&mvtj:addressbook:address_ship:id;', 'CSRF_Token': '&mvtj:global:Basket:csrf_token;' } ); return false;">Delete</a>
+				</li>
 				<mvt:if expr="l.settings:addressbook:address_ship:id NE g.Customer:ship_id">
-					<li class="o-list-inline__item"><a href="&mvte:urls:_self:secure_sep;Action=CCSA&amp;ShippingAddress_ID=&mvta:addressbook:address_ship:id;&amp;CSRF_Token=&mvta:global:Basket:csrf_token;">Set As Default Shipping</a></li>
+					<li class="o-list-inline__item">
+						<a href="#" onclick="MMDynamic_Form_Submit( '&mvtj:urls:_self:secure;', { 'Action': 'CCSA', 'ShippingAddress_ID': '&mvtj:addressbook:address_ship:id;', 'CSRF_Token': '&mvtj:global:Basket:csrf_token;' } ); return false;">Set As Default Shipping</a>
+					</li>
 				</mvt:if>
 				<mvt:if expr="l.settings:addressbook:address_ship:id NE g.Customer:bill_id">
-					<li class="o-list-inline__item"><a href="&mvte:urls:_self:secure_sep;Action=CCSA&amp;BillingAddress_ID=&mvta:addressbook:address_ship:id;&amp;CSRF_Token=&mvta:global:Basket:csrf_token;">Set As Default Billing</a></li>
+					<li class="o-list-inline__item">
+						<a href="#" onclick="MMDynamic_Form_Submit( '&mvtj:urls:_self:secure;', { 'Action': 'CCSA', 'BillingAddress_ID': '&mvtj:addressbook:address_ship:id;', 'CSRF_Token': '&mvtj:global:Basket:csrf_token;' } ); return false;">Set As Default Billing</a>
+					</li>
 				</mvt:if>
 			</ul>
 			<p>
@@ -67,13 +75,21 @@
 		<article class="o-layout__item">
 			<p class="c-heading-delta"><span class="u-icon-credit-card"></span> Default Billing Address</p>
 			<ul class="o-list-inline u-font-small">
-				<li class="o-list-inline__item"><a href="&mvte:urls:CADE:secure_sep;Address_ID=&mvta:addressbook:address_bill:id;&amp;CSRF_Token=&mvta:global:Basket:csrf_token;">Edit</a></li>
-				<li class="o-list-inline__item"><a href="&mvte:urls:_self:secure_sep;Action=DCSA&amp;Address_ID=&mvta:addressbook:address_bill:id;&amp;CSRF_Token=&mvta:global:Basket:csrf_token;">Delete</a></li>
+				<li class="o-list-inline__item">
+					<a href="&mvte:urls:CADE:secure_sep;Address_ID=&mvta:addressbook:address_bill:id;&amp;CSRF_Token=&mvta:global:Basket:csrf_token;">Edit</a>
+				</li>
+				<li class="o-list-inline__item">
+					<a href="#" onclick="if ( confirm( 'Deleting this address cannot be undone.\\x0A\\x0AContinue?' ) ) MMDynamic_Form_Submit( '&mvtj:urls:_self:secure;', { 'Action': 'DCSA', 'Address_ID': '&mvtj:addressbook:address_bill:id;', 'CSRF_Token': '&mvtj:global:Basket:csrf_token;' } ); return false;">Delete</a>
+				</li>
 				<mvt:if expr="l.settings:addressbook:address_bill:id NE g.Customer:ship_id">
-					<li class="o-list-inline__item"><a href="&mvte:urls:_self:secure_sep;Action=CCSA&amp;ShippingAddress_ID=&mvta:addressbook:address_bill:id;&amp;CSRF_Token=&mvta:global:Basket:csrf_token;">Set As Default Shipping</a></li>
+					<li class="o-list-inline__item">
+						<a href="#" onclick="MMDynamic_Form_Submit( '&mvtj:urls:_self:secure;', { 'Action': 'CCSA', 'ShippingAddress_ID': '&mvtj:addressbook:address_bill:id;', 'CSRF_Token': '&mvtj:global:Basket:csrf_token;' } ); return false;">Set As Default Shipping</a>
+					</li>
 				</mvt:if>
 				<mvt:if expr="l.settings:addressbook:address_bill:id NE g.Customer:bill_id">
-					<li class="o-list-inline__item"><a href="&mvte:urls:_self:secure_sep;Action=CCSA&amp;BillingAddress_ID=&mvta:addressbook:address_bill:id;&amp;CSRF_Token=&mvta:global:Basket:csrf_token;">Set As Default Billing</a></li>
+					<li class="o-list-inline__item">
+						<a href="#" onclick="MMDynamic_Form_Submit( '&mvtj:urls:_self:secure;', { 'Action': 'CCSA', 'BillingAddress_ID': '&mvtj:addressbook:address_bill:id;', 'CSRF_Token': '&mvtj:global:Basket:csrf_token;' } ); return false;">Set As Default Billing</a>
+					</li>
 				</mvt:if>
 			</ul>
 			<p>
@@ -175,10 +191,14 @@
 				<ul class="o-list-inline u-font-small">
 					<li class="o-list-inline__item u-text-bold">Set as default:</li>
 					<mvt:if expr="l.settings:address:id NE g.Customer:ship_id">
-						<li class="o-list-inline__item"><a href="&mvte:urls:_self:secure_sep;Action=CCSA&amp;ShippingAddress_ID=&mvta:address:id;&amp;CSRF_Token=&mvta:global:Basket:csrf_token;">Shipping</a></li>
+						<li class="o-list-inline__item">
+							<a href="&mvte:urls:_self:secure_sep;Action=CCSA&amp;ShippingAddress_ID=&mvta:address:id;&amp;CSRF_Token=&mvta:global:Basket:csrf_token;">Shipping</a>
+						</li>
 					</mvt:if>
 					<mvt:if expr="l.settings:address:id NE g.Customer:bill_id">
-						<li class="o-list-inline__item"><a href="&mvte:urls:_self:secure_sep;Action=CCSA&amp;BillingAddress_ID=&mvta:address:id;&amp;CSRF_Token=&mvta:global:Basket:csrf_token;">Billing</a></li>
+						<li class="o-list-inline__item">
+							<a href="&mvte:urls:_self:secure_sep;Action=CCSA&amp;BillingAddress_ID=&mvta:address:id;&amp;CSRF_Token=&mvta:global:Basket:csrf_token;">Billing</a>
+						</li>
 					</mvt:if>
 				</ul>
 			</mvt:if>

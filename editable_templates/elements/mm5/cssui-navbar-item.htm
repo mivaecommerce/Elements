@@ -10,9 +10,9 @@
 			<mvt:item name="customerlink" file="cssui-custlinklogin-item.htm,cssui-custlinkedit-item.htm" />
 		</div>
 		<div class="o-layout__item">
-			<a class="u-color-white t-site-header__basket-link" href="&mvte:urls:BASK:auto;">
+			<a class="u-color-white t-site-header__basket-link" data-hook="open-mini-basket" href="&mvte:urls:BASK:auto;">
 				<span class="u-icon-cart-empty u-color-gray-30"></span> Cart
-				<span class="u-bg-gray-30 u-color-white t-site-header__basket-link-quantity">&mvte:global_minibasket:basket_count;</span>
+				<span class="u-bg-gray-30 u-color-white t-site-header__basket-link-quantity" data-hook="mini-basket-count">&mvte:global_minibasket:basket_count;</span>
 			</a>
 		</div>
 	</div>

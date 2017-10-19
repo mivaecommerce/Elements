@@ -35,7 +35,7 @@
 		<div class="o-layout__item">
 			<p class="c-control-group">
 				<a class="c-button c-button--full c-button--primary c-control-group__button" href="&mvte:urls:CPCE:auto_sep;PaymentMethod=paymentcard:&mvta:paymentcard:id;&amp;CSRF_Token=&mvta:global:Basket:csrf_token;">Edit</a>
-				<a class="c-button c-button--full c-button--hollow c-control-group__button u-color-red" href="&mvte:urls:CPCD:auto_sep;Action=DCPC&amp;PaymentCard_ID=&mvta:paymentcard:id;&amp;CSRF_Token=&mvta:global:Basket:csrf_token;" onclick="if ( !confirm( 'Deleting this payment card cannot be undone.\x0A\x0AContinue?' ) ) return false;">Delete</a>
+				<a class="c-button c-button--full c-button--hollow c-control-group__button u-color-red" href="&#" onclick="if ( confirm( 'Deleting this payment card cannot be undone.\\x0A\\x0AContinue?' ) ) { MMDynamic_Form_Submit( '&mvtj:urls:CPCD:secure;', { 'Action': 'DCPC', 'PaymentCard_ID': '&mvtj:paymentcard:id;', 'CSRF_Token': '&mvtj:global:Basket:csrf_token;' } ); } return false;">Delete</a>
 			</p>
 		</div>
 	</div>

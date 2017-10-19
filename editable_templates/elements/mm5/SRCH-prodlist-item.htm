@@ -1,4 +1,13 @@
 <mvt:if expr="l.settings:search_results:products_on_page_count GT 1">
+	<mvt:assign name="g.facet_listings" value="''"/>
+	<mvt:foreach iterator="facet" array="facets:facets">
+		<mvt:foreach iterator="facet_value" array="facet:values">
+			<mvt:if expr="l.settings:facet_value:selected">
+				<input type="hidden" name="&mvte:facet:code;" value="&mvte:facet_value:value;"/>
+				<mvt:assign name="g.facet_listings" value="'&' $ l.settings::facet:code $ '=' $ l.settings::facet_value:value"/>
+			</mvt:if>
+		</mvt:foreach>
+	</mvt:foreach>
 	<section class="u-flex o-layout--align-center o-layout--justify-between o-layout--wrap">
 		<div class="x-display-list-filtering">
 			<nav class="x-display-list-filtering__per-page">
@@ -12,7 +21,7 @@
 						</li>
 					<mvt:else>
 						<li class="o-list-inline__item">
-							<a class="c-button" href="&mvte:urls:_self:auto_sep;Search=&mvte:global:Search;&Sort_By=&mvte:global:Sort_By;&Per_Page=12" title="Show 12 Products Per Page">12</a>
+							<a class="c-button" href="&mvte:urls:_self:auto_sep;Search=&mvte:global:Search;&Sort_By=&mvte:global:Sort_By;&Per_Page=12&mvte:global:facet_listings" title="Show 12 Products Per Page">12</a>
 						</li>
 					</mvt:if>
 					<mvt:if expr="g.Per_Page EQ 24">
@@ -21,7 +30,7 @@
 						</li>
 					<mvt:else>
 						<li class="o-list-inline__item">
-							<a class="c-button" href="&mvte:urls:_self:auto_sep;Search=&mvte:global:Search;&Sort_By=&mvte:global:Sort_By;&Per_Page=24" title="Show 24 Products Per Page">24</a>
+							<a class="c-button" href="&mvte:urls:_self:auto_sep;Search=&mvte:global:Search;&Sort_By=&mvte:global:Sort_By;&Per_Page=24&mvte:global:facet_listings" title="Show 24 Products Per Page">24</a>
 						</li>
 					</mvt:if>
 					<mvt:if expr="g.Per_Page EQ -1">
@@ -30,7 +39,7 @@
 						</li>
 					<mvt:else>
 						<li class="o-list-inline__item">
-							<a class="c-button" href="&mvte:urls:_self:auto_sep;Search=&mvte:global:Search;&Sort_By=&mvte:global:Sort_By;&Per_Page=-1" title="Show All Products">All</a>
+							<a class="c-button" href="&mvte:urls:_self:auto_sep;Search=&mvte:global:Search;&Sort_By=&mvte:global:Sort_By;&Per_Page=-1&mvte:global:facet_listings" title="Show All Products">All</a>
 						</li>
 					</mvt:if>
 				</ul>
@@ -38,11 +47,26 @@
 			<form class="x-display-list-filtering__sort-by">
 				<fieldset>
 					<legend>Sort Products By</legend>
+					<mvt:if expr="tolower( l.settings:category_listing:mode ) EQ 'ctgy' AND toupper( g.Screen ) NE 'CTGY'">
+						<input type="hidden" name="Category_Code" value="&mvte:global:Category_Code;">
+					<mvt:elseif expr="tolower( l.settings:category_listing:mode ) EQ 'relp' AND toupper( g.Screen ) NE 'PROD'">
+						<input type="hidden" name="Product_Code" value="&mvte:global:Product_Code;">
+					</mvt:if>
+					<mvt:item name="urls" param="hidden_params:_self:auto"/>
+					<input type="hidden" name="Search" value="&mvte:global:Search;"/>
+					<input type="hidden" name="Per_Page" value="&mvte:global:Per_Page;"/>
+					<mvt:foreach iterator="facet" array="facets:facets">
+						<mvt:foreach iterator="facet_value" array="facet:values">
+							<mvt:if expr="l.settings:facet_value:selected">
+								<input type="hidden" name="&mvte:facet:code;" value="&mvte:facet_value:value;">
+							</mvt:if>
+						</mvt:foreach>
+					</mvt:foreach>
 					<ul class="c-form-list">
 						<li class="c-form-list__item">
 							<label class="c-form-label u-text-normal" for="l-sort_by">Sort By:</label>
 							<div class="c-form-select">
-								<select id="l-sort_by" class="c-form-select__dropdown" name="Sort_By" onchange="window.location.href='&mvtj:urls:_self:auto_sep;Per_Page=' + encodeURIComponent( '&mvtj:global:Per_Page;' ) + '&amp;Sort_By=' + encodeURIComponent( this.options[ this.selectedIndex ].value ) + '&amp;Search=' + encodeURIComponent( '&mvtj:global:Search;' );">
+								<select id="l-sort_by" class="c-form-select__dropdown" name="Sort_By" onchange="MMProdList_UpdateQuery( this ); return true;">
 									<mvt:if expr="ISNULL g.Sort_By">
 										<option value="disp_order" selected>Default</option>
 									<mvt:else>

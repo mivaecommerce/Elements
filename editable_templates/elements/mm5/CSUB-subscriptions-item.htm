@@ -118,21 +118,31 @@
 					</mvt:if>
 					<a href="&mvt:item:link;"><img class="x-product-list__image" src="&mvt:item:src;" alt="&mvte:item:name;"></a>
 					<figcaption>
-						<div class="x-messages x-messages--info u-text-center">
-							<mvt:if expr="l.settings:subscription:nextdate EQ 0">
-								Next Shipment: N/A
-							<mvt:else>
-								Next Shipment: &mvt:subscription:formatted_nextdate_date;
-							</mvt:if>
-						</div>
-						<mvt:if expr="( l.settings:subscription:productsubscriptionsettings:can_qty ) OR ( l.settings:subscription:productsubscriptionsettings:can_term ) OR ( l.settings:subscription:productsubscriptionsettings:can_date ) OR ( l.settings:subscription:productsubscriptionsettings:can_cancel )">
-							<mvt:if expr="( l.settings:subscription:productsubscriptionsettings:can_qty ) OR ( l.settings:subscription:productsubscriptionsettings:can_term ) OR ( l.settings:subscription:productsubscriptionsettings:can_date )">
-								<p><a class="c-button c-button--full" href="&mvte:urls:CSBE:auto_sep;Subscription_ID=&mvta:subscription:id;&amp;CSRF_Token=&mvta:global:Basket:csrf_token;">Edit Subscription</a></p>
-							<mvt:else>
-								<p><a class="c-button c-button--full" href="&mvte:urls:CSBE:auto_sep;Subscription_ID=&mvta:subscription:id;&amp;CSRF_Token=&mvta:global:Basket:csrf_token;">View Subscription</a></p>
-							</mvt:if>
-						<mvt:else>
+						<mvt:if expr="l.settings:subscription:status NE 'C'">
+							<div class="x-messages x-messages--info u-text-center">
+								<mvt:if expr="l.settings:subscription:nextdate EQ 0">
+									Next Shipment: N/A
+								<mvt:else>
+									Next Shipment: &mvt:subscription:formatted_nextdate_date;
+								</mvt:if>
+							</div>
+						</mvt:if>
+						<mvt:if expr="l.settings:subscription:status EQ 'C'">
+							<div class="x-messages x-messages--info u-text-center">
+								<mvt:if expr="l.settings:subscription:nextdate EQ 0">
+									Cancellation Date: N/A
+								<mvt:else>
+									Cancellation Date: &mvt:subscription:formatted_cncldate_date;
+								</mvt:if>
+							</div>
+						</mvt:if>
+						<mvt:if expr="l.settings:subscription:status EQ 'C'">
 							<p><a class="c-button c-button--full" href="&mvte:urls:CSBE:auto_sep;Subscription_ID=&mvta:subscription:id;&amp;CSRF_Token=&mvta:global:Basket:csrf_token;">View Subscription</a></p>
+						<mvt:else>
+							<p><a class="c-button c-button--full" href="&mvte:urls:CSBE:auto_sep;Subscription_ID=&mvta:subscription:id;&amp;CSRF_Token=&mvta:global:Basket:csrf_token;">Edit Subscription</a></p>
+						</mvt:if>
+						<mvt:if expr="l.settings:subscription:status NE 'C' AND l.settings:subscription:productsubscriptionsettings:can_cancel AND ( ( l.settings:subscription:productsubscriptionsettings:cncl_min EQ 0 ) OR ( l.settings:subscription:termproc GE l.settings:subscription:productsubscriptionsettings:cncl_min ) )">
+							<p><a class="c-button c-button--full c-button--hollow u-color-red" href="#" onclick="if ( confirm( 'Are you sure you want to cancel your subscription? This action cannot be undone.\\x0A\\x0AContinue?' ) ) { MMDynamic_Form_Submit( '&mvtj:urls:_self:secure;', { 'Action': 'DCSB', 'Subscription_ID': '&mvtj:subscription:id;', 'Offset': '&mvtj:global:Offset;', 'Sort_By': '&mvtj:global:Sort_By;', 'Per_Page': '&mvtj:global:Per_Page;', 'CSRF_Token': '&mvtj:global:basket:csrf_token;' } ); } return false;">Cancel Subscription</a></p>
 						</mvt:if>
 						<p>
 							<strong>&mvte:item:name;</strong><br>
@@ -163,7 +173,23 @@
 						</p>
 						<p>
 							<strong class="u-font-small">Term</strong><br>
-							&mvte:subscription:productsubscriptionterm:descrip;
+							&mvte:subscription:productsubscriptionterm:descrip;<mvt:if expr="l.settings:subscription:status EQ 'C'"> (Cancelled)</mvt:if>
+						</p>
+						<mvt:if expr="l.settings:subscription:status EQ 'E'">
+							<p>
+								<strong class="u-font-small">Processing Error</strong><br>
+								&mvte:subscription:message;
+							</p>
+						</mvt:if>
+						<mvt:if expr="l.settings:subscription:productsubscriptionterm:term GT 0">
+							<p>
+								<strong class="u-font-small">Remaining Orders</strong><br>
+								&mvte:subscription:termrem;
+							</p>
+						</mvt:if>
+						<p>
+							<strong class="u-font-small">Processed Orders</strong><br>
+							&mvte:subscription:termproc;
 						</p>
 						<div class="o-layout u-grids-3">
 							<div class="o-layout__item">

@@ -6,110 +6,112 @@
 		<input type="hidden" name="CSRF_Token" value="&mvte:global:Basket:csrf_token;">
 		<section class="o-layout o-layout--wide">
 			<aside class="o-layout__item u-width-12 u-width-4--l">
-				<ul class="c-form-list">
-					<li class="c-form-list__item c-form-list__item--full &mvte:global:SubscriptionPaymentCard_Row;">
-						<label class="c-form-label u-text-bold" for="PaymentCard_ID" title="Payment Method">Payment Method</label>
-						<div class="c-form-select">
-							<select id="PaymentCard_ID" class="c-form-select__dropdown" name="PaymentCard_ID" required>
-								<mvt:if expr="l.settings:subscriptionfields:custpc_id EQ 0">
-									<mvt:if expr="g.PaymentCard_ID EQ 0">
-										<option value="0" selected>None</option>
-									<mvt:else>
-										<option value="0">None</option>
-									</mvt:if>
-								</mvt:if>
-								<mvt:foreach iterator="paymentcard" array="paymentcards:paymentcards">
-									<mvt:if expr="l.settings:paymentcard:id EQ g.PaymentCard_ID">
-										<option value="&mvte:paymentcard:id;" selected>&mvte:paymentcard:type; ending in &mvte:paymentcard:lastfour;</option>
-									<mvt:else>
-										<option value="&mvte:paymentcard:id;">&mvte:paymentcard:type; ending in &mvte:paymentcard:lastfour;</option>
-									</mvt:if>
-								</mvt:foreach>
-							</select>
-						</div>
-					</li>
-					<li class="c-form-list__item c-form-list__item--full &mvte:global:SubscriptionShipping_Row;">
-						<label class="c-form-label u-text-bold" for="ShippingMethod" title="Shipping Method">Shipping Method</label>
-						<div class="c-form-select">
-							<select id="ShippingMethod" class="c-form-select__dropdown" name="ShippingMethod" required>
-								<mvt:if expr="l.settings:subscriptionfields:ship_id EQ 0">
-									<mvt:if expr="g.ShippingMethod EQ 0">
-										<option value="0" selected>None</option>
-									<mvt:else>
-										<option value="0">None</option>
-									</mvt:if>
-								</mvt:if>
-								<mvt:foreach iterator="shippingmethod" array="subscriptionfields:shippingmethods">
-									<mvt:if expr="( l.settings:shippingmethod:module:code $ ':' $ l.settings:shippingmethod:code ) EQ g.ShippingMethod">
-										<option value="&mvte:shippingmethod:module:code;:&mvte:shippingmethod:code;" selected>&mvte:shippingmethod:name; (&mvt:shippingmethod:formatted_price;)</option>
-									<mvt:else>
-										<option value="&mvte:shippingmethod:module:code;:&mvte:shippingmethod:code;">&mvte:shippingmethod:name; (&mvt:shippingmethod:formatted_price;)</option>
-									</mvt:if>
-								</mvt:foreach>
-							</select>
-						</div>
-					</li>
-					<li class="c-form-list__item c-form-list__item--full &mvte:global:SubscriptionAddress_Row;">
-						<label class="c-form-label u-text-bold" for="Address_ID" title="Shipping Address">Shipping Address</label>
-						<div class="c-form-select">
-							<select id="Address_ID" class="c-form-select__dropdown" name="Address_ID" required>
-								<mvt:foreach iterator="address" array="customer:addresses">
-									<mvt:if expr="l.settings:address:id EQ g.Address_ID">
-										<option value="&mvte:address:id;" selected>&mvte:address:descrip;</option>
-									<mvt:else>
-										<option value="&mvte:address:id;">&mvte:address:descrip;</option>
-									</mvt:if>
-								</mvt:foreach>
-							</select>
-						</div>
-					</li>
-					<mvt:if expr="l.settings:subscriptionfields:productsubscriptionsettings:can_term">
-						<li class="c-form-list__item c-form-list__item--full &mvte:global:SubscriptionTerm_Row;">
-							<label class="c-form-label u-text-bold" for="ProductSubscriptionTerm_ID" title="Subscription Term">Subscription Term</label>
+				<mvt:if expr="l.settings:subscriptionfields:status NE 'C'">
+					<ul class="c-form-list">
+						<li class="c-form-list__item c-form-list__item--full &mvte:global:SubscriptionPaymentCard_Row;">
+							<label class="c-form-label u-text-bold" for="PaymentCard_ID" title="Payment Method">Payment Method</label>
 							<div class="c-form-select">
-								<select id="ProductSubscriptionTerm_ID" class="c-form-select__dropdown" name="ProductSubscriptionTerm_ID" required>
-									<mvt:foreach iterator="productsubscriptointerm" array="subscriptionfields:productsubscriptionterms">
-										<mvt:if expr="l.settings:productsubscriptointerm:id EQ g.ProductSubscriptionTerm_ID">
-											<option value="&mvte:productsubscriptointerm:id;" selected>&mvte:productsubscriptointerm:descrip;</option>
+								<select id="PaymentCard_ID" class="c-form-select__dropdown" name="PaymentCard_ID" required>
+									<mvt:if expr="l.settings:subscriptionfields:custpc_id EQ 0">
+										<mvt:if expr="g.PaymentCard_ID EQ 0">
+											<option value="0" selected>None</option>
 										<mvt:else>
-											<option value="&mvte:productsubscriptointerm:id;">&mvte:productsubscriptointerm:descrip;</option>
+											<option value="0">None</option>
+										</mvt:if>
+									</mvt:if>
+									<mvt:foreach iterator="paymentcard" array="paymentcards:paymentcards">
+										<mvt:if expr="l.settings:paymentcard:id EQ g.PaymentCard_ID">
+											<option value="&mvte:paymentcard:id;" selected>&mvte:paymentcard:type; ending in &mvte:paymentcard:lastfour;</option>
+										<mvt:else>
+											<option value="&mvte:paymentcard:id;">&mvte:paymentcard:type; ending in &mvte:paymentcard:lastfour;</option>
 										</mvt:if>
 									</mvt:foreach>
 								</select>
 							</div>
 						</li>
-					</mvt:if>
-					<mvt:if expr="l.settings:subscriptionfields:productsubscriptionsettings:can_date">
-						<li class="c-form-list__item c-form-list__item--full &mvte:global:SubscriptionNextDate_Row;">
-							<label class="c-form-label u-text-bold" for="PaymentCard_ID" title="Next Order Date">Next Order Date</label>
-							<input type="hidden" name="NextOrderDate" id="subscriptionfields_nextorderdate" value="&mvte:global:NextOrderDate;" />
-							<span id="subscriptionfields_nextorderdate_display">&mvte:global:Formatted_NextOrderDate;</span>
-							<mvt:item name="datepicker" file="CSBE-datepicker-item.htm" />
-							<script>
-								var miva_datepicker, element_subscriptionfields_nextorderdate,
-									element_subscriptionfields_nextorderdate_display;
-
-								element_subscriptionfields_nextorderdate = document.getElementById('subscriptionfields_nextorderdate');
-								element_subscriptionfields_nextorderdate_display = document.getElementById('subscriptionfields_nextorderdate_display');
-
-								miva_datepicker = new MivaDatePicker('&mvtj:subscriptionfields:nextdate;');
-								miva_datepicker.SetDateLimit_Past(new Date());
-								miva_datepicker.oncomplete = function (date) {
-									var day = date.getDate();
-									var month = date.getMonth() + 1;
-
-									element_subscriptionfields_nextorderdate.value = date.getTime() / 1000;
-									element_subscriptionfields_nextorderdate_display.innerHTML = ( month < 10 ? '0' : '' ) + month + '/' + ( day < 10 ? '0' : '' ) + day + '/' + date.getFullYear();
-								};
-
-								element_subscriptionfields_nextorderdate_display.onclick = function () {
-									miva_datepicker.Show();
-								}
-							</script>
+						<li class="c-form-list__item c-form-list__item--full &mvte:global:SubscriptionShipping_Row;">
+							<label class="c-form-label u-text-bold" for="ShippingMethod" title="Shipping Method">Shipping Method</label>
+							<div class="c-form-select">
+								<select id="ShippingMethod" class="c-form-select__dropdown" name="ShippingMethod" required>
+									<mvt:if expr="l.settings:subscriptionfields:ship_id EQ 0">
+										<mvt:if expr="g.ShippingMethod EQ 0">
+											<option value="0" selected>None</option>
+										<mvt:else>
+											<option value="0">None</option>
+										</mvt:if>
+									</mvt:if>
+									<mvt:foreach iterator="shippingmethod" array="subscriptionfields:shippingmethods">
+										<mvt:if expr="( l.settings:shippingmethod:module:code $ ':' $ l.settings:shippingmethod:code ) EQ g.ShippingMethod">
+											<option value="&mvte:shippingmethod:module:code;:&mvte:shippingmethod:code;" selected>&mvte:shippingmethod:name; (&mvt:shippingmethod:formatted_price;)</option>
+										<mvt:else>
+											<option value="&mvte:shippingmethod:module:code;:&mvte:shippingmethod:code;">&mvte:shippingmethod:name; (&mvt:shippingmethod:formatted_price;)</option>
+										</mvt:if>
+									</mvt:foreach>
+								</select>
+							</div>
 						</li>
-					</mvt:if>
-				</ul>
-				<br>
+						<li class="c-form-list__item c-form-list__item--full &mvte:global:SubscriptionAddress_Row;">
+							<label class="c-form-label u-text-bold" for="Address_ID" title="Shipping Address">Shipping Address</label>
+							<div class="c-form-select">
+								<select id="Address_ID" class="c-form-select__dropdown" name="Address_ID" required>
+									<mvt:foreach iterator="address" array="customer:addresses">
+										<mvt:if expr="l.settings:address:id EQ g.Address_ID">
+											<option value="&mvte:address:id;" selected>&mvte:address:descrip;</option>
+										<mvt:else>
+											<option value="&mvte:address:id;">&mvte:address:descrip;</option>
+										</mvt:if>
+									</mvt:foreach>
+								</select>
+							</div>
+						</li>
+						<mvt:if expr="l.settings:subscriptionfields:productsubscriptionsettings:can_term">
+							<li class="c-form-list__item c-form-list__item--full &mvte:global:SubscriptionTerm_Row;">
+								<label class="c-form-label u-text-bold" for="ProductSubscriptionTerm_ID" title="Subscription Term">Subscription Term</label>
+								<div class="c-form-select">
+									<select id="ProductSubscriptionTerm_ID" class="c-form-select__dropdown" name="ProductSubscriptionTerm_ID" required>
+										<mvt:foreach iterator="productsubscriptointerm" array="subscriptionfields:productsubscriptionterms">
+											<mvt:if expr="l.settings:productsubscriptointerm:id EQ g.ProductSubscriptionTerm_ID">
+												<option value="&mvte:productsubscriptointerm:id;" selected>&mvte:productsubscriptointerm:descrip;</option>
+											<mvt:else>
+												<option value="&mvte:productsubscriptointerm:id;">&mvte:productsubscriptointerm:descrip;</option>
+											</mvt:if>
+										</mvt:foreach>
+									</select>
+								</div>
+							</li>
+						</mvt:if>
+						<mvt:if expr="l.settings:subscriptionfields:productsubscriptionsettings:can_date">
+							<li class="c-form-list__item c-form-list__item--full &mvte:global:SubscriptionNextDate_Row;">
+								<label class="c-form-label u-text-bold" for="PaymentCard_ID" title="Next Order Date">Next Order Date</label>
+								<input type="hidden" name="NextOrderDate" id="subscriptionfields_nextorderdate" value="&mvte:global:NextOrderDate;" />
+								<span id="subscriptionfields_nextorderdate_display">&mvte:global:Formatted_NextOrderDate;</span>
+								<mvt:item name="datepicker" file="CSBE-datepicker-item.htm" />
+								<script>
+									var miva_datepicker, element_subscriptionfields_nextorderdate,
+										element_subscriptionfields_nextorderdate_display;
+	
+									element_subscriptionfields_nextorderdate = document.getElementById('subscriptionfields_nextorderdate');
+									element_subscriptionfields_nextorderdate_display = document.getElementById('subscriptionfields_nextorderdate_display');
+	
+									miva_datepicker = new MivaDatePicker('&mvtj:subscriptionfields:nextdate;');
+									miva_datepicker.SetDateLimit_Past(new Date());
+									miva_datepicker.oncomplete = function (date) {
+										var day = date.getDate();
+										var month = date.getMonth() + 1;
+	
+										element_subscriptionfields_nextorderdate.value = date.getTime() / 1000;
+										element_subscriptionfields_nextorderdate_display.innerHTML = ( month < 10 ? '0' : '' ) + month + '/' + ( day < 10 ? '0' : '' ) + day + '/' + date.getFullYear();
+									};
+	
+									element_subscriptionfields_nextorderdate_display.onclick = function () {
+										miva_datepicker.Show();
+									}
+								</script>
+							</li>
+						</mvt:if>
+					</ul>
+					<br>
+				</mvt:if>
 				<ul class="o-list-block">
 					<li class="o-list-block__item">
 						<p class="c-heading-echo u-text-bold">Shipping Address</p>
@@ -163,17 +165,35 @@
 							<span>&mvt:subscriptionfields:formatted_lastdate_date;</span>
 						</mvt:if>
 					</li>
+					<mvt:if expr="l.settings:subscriptionfields:status NE 'C'">
+						<li class="o-list-block__item o-layout--justify-between u-flex u-font-small">
+							<span class="u-text-bold">Next Order Date</span>
+							<mvt:if expr="l.settings:subscriptionfields:nextdate EQ 0">
+								<span>N/A</span>
+							<mvt:else>
+								<span>&mvt:subscriptionfields:formatted_nextdate_date;</span>
+							</mvt:if>
+						</li>
+					</mvt:if>
+					<mvt:if expr="l.settings:subscriptionfields:status EQ 'C'">
+						<li class="o-list-block__item o-layout--justify-between u-flex u-font-small">
+							<span class="u-text-bold">Cancellation Date</span>
+							<mvt:if expr="l.settings:subscriptionfields:cncldate EQ 0">
+								<span>N/A</span>
+							<mvt:else>
+								<span>&mvt:subscriptionfields:formatted_cncldate_date;</span>
+							</mvt:if>
+						</li>
+					</mvt:if>
+					<mvt:if expr="l.settings:subscriptionfields:productsubscriptionterm:term GT 0">
+						<li class="o-list-block__item o-layout--justify-between u-flex u-font-small">
+							<span class="u-text-bold">Remaining Orders</span>
+							<span>&mvte:subscriptionfields:termrem;</span>
+						</li>
+					</mvt:if>
 					<li class="o-list-block__item o-layout--justify-between u-flex u-font-small">
-						<span class="u-text-bold">Next Order Date</span>
-						<mvt:if expr="l.settings:subscriptionfields:nextdate EQ 0">
-							<span>N/A</span>
-						<mvt:else>
-							<span>&mvt:subscriptionfields:formatted_nextdate_date;</span>
-						</mvt:if>
-					</li>
-					<li class="o-list-block__item o-layout--justify-between u-flex u-font-small">
-						<span class="u-text-bold">Remaining Orders</span>
-						<span>&mvte:subscriptionfields:termrem;</span>
+						<span class="u-text-bold">Processed Orders</span>
+						<span>&mvte:subscriptionfields:termproc;</span>
 					</li>
 				</ul>
 			</aside>
