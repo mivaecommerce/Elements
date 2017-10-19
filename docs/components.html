@@ -84,7 +84,7 @@
 							<button class="c-button c-button--hollow">Hollow Button</button>
 						</li>
 						<li class="o-list-inline__item">
-							<button class="c-button c-button--clear">Clear Button</button>
+							<button class="c-button c-button--clear u-color-blue">Clear Button</button>
 						</li>
 						<li class="o-list-inline__item">
 							<button class="c-button" disabled>Disabled Button</button>
@@ -500,37 +500,86 @@
 					</pre>
 					<p class="u-font-small u-text-uppercase x-inline-code">Example</p>
 					<hr class="c-keyline">
-					<br>
+					<h3 id="menu">
+						<span class="c-heading-charlie">Menu</span>
+						<code class="x-inline-code u-font-small">THEME_NAME/core/css/components/menu.css</code>
+					</h3>
+					<p>Simple menu layout component.</p>
+					<pre class="language-markup">
+						<code><!--
+							<nav class="c-menu">
+								<h5 class="c-menu__title u-text-uppercase">Quick Links</h5>
+								<ul class="c-menu__list u-text-uppercase">
+									<li><a class="c-menu__link" href="">About Us</a></li>
+									<li><a class="c-menu__link" href="">FAQs</a></li>
+									<li><a class="c-menu__link" href="">Contact Us</a></li>
+									<li><a class="c-menu__link" href="">Become an Affiliate</a></li>
+								</ul>
+							</nav>
+						--></code>
+					</pre>
+					<p class="u-font-small u-text-uppercase x-inline-code">Example</p>
+					<nav class="c-menu">
+						<h5 class="c-menu__title u-text-uppercase">Quick Links</h5>
+						<ul class="c-menu__list u-text-uppercase">
+							<li><a class="c-menu__link" href="">About Us</a></li>
+							<li><a class="c-menu__link" href="">FAQs</a></li>
+							<li><a class="c-menu__link" href="">Contact Us</a></li>
+							<li><a class="c-menu__link" href="">Become an Affiliate</a></li>
+						</ul>
+					</nav>
 					<hr class="c-keyline">
-					<h3 id="spinner">
-						<span class="c-heading-charlie">Spinner</span>
-						<code class="x-inline-code u-font-small">THEME_NAME/core/css/components/spinner.css</code>
+					<h3 id="mini-modal">
+						<span class="c-heading-charlie">Mini-Modal</span>
+						<code class="x-inline-code u-font-small">THEME_NAME/core/css/components/mini-modal.css</code>
 					</h3>
 					<p>
-						A spinner component is used to indicate that content is loading and is particularly useful for
-						dynamically loaded content displaying an animated circle graphic. Once the content has loaded
-						the spinner fades and should be replaced by the loaded content. The color of the spinner can be
-						changed by using a color utility class.
+						Mini-modal is a lightweight and responsive light box plugin which supports images, YouTube,
+						Vimeo, Google Maps, Inline, Iframe, and AJAX content.
 					</p>
 					<pre class="language-markup">
 						<code><!--
-							Large Spinner
-							<span class="c-spinner c-spinner--large"></span>
-							
-							Standard Spinner
-							<span class="c-spinner"></span>
-							
-							Small Spinner
-							<span class="c-spinner c-spinner--small"></span>
+							<a data-mini-modal href="LARGE_IMAGE_URL" title="image">
+								<img src="IMAGE_URL">
+							</a>
 							
 						--></code>
 					</pre>
 					<p class="u-font-small u-text-uppercase x-inline-code">Example</p>
-					<ul class="o-list-inline">
-						<li class="o-list-inline__item c-spinner c-spinner--large"></li>
-						<li class="o-list-inline__item c-spinner u-color-primary"></li>
-						<li class="o-list-inline__item c-spinner c-spinner--small"></li>
-					</ul>
+					<p><a href="http://elements.mivareadythemes.com/product-01.html" target="_blank">Click Product Image</a></p>
+					<hr class="c-keyline">
+					<h3 id="navigation">
+						<span class="c-heading-charlie">Navigation</span>
+						<code class="x-inline-code u-font-small">THEME_NAME/core/css/components/navigation.css</code>
+					</h3>
+					<p>Simple navigation layout component.</p>
+					<pre class="language-markup">
+						<code><!--
+							<nav class="u-text-uppercase c-navigation">
+								<input id="mainNavButton" class="c-navigation__trigger" type="checkbox">
+								<label class="c-navigation__label" for="mainNavButton">Menu</label>
+								<ul class="c-navigation__row">
+									<li class="c-navigation__list"><a class="c-navigation__link" href="#">All Products</a></li>
+									<li class="c-navigation__list"><a class="c-navigation__link" href="#">Category 1</a></li>
+									<li class="c-navigation__list"><a class="c-navigation__link" href="#">Category 2</a></li>
+									<li class="c-navigation__list"><a class="c-navigation__link" href="#">Category 3</a></li>
+									<li class="c-navigation__list"><a class="c-navigation__link" href="#">More</a></li>
+								</ul>
+							</nav>
+						--></code>
+					</pre>
+					<p class="u-font-small u-text-uppercase x-inline-code">Example</p>
+					<nav class="u-text-uppercase c-navigation">
+						<input id="mainNavButton" class="c-navigation__trigger" type="checkbox">
+						<label class="c-navigation__label" for="mainNavButton">Menu</label>
+						<ul class="c-navigation__row">
+							<li class="c-navigation__list"><a class="c-navigation__link" href="#">All Products</a></li>
+							<li class="c-navigation__list"><a class="c-navigation__link" href="#">Category 1</a></li>
+							<li class="c-navigation__list"><a class="c-navigation__link" href="#">Category 2</a></li>
+							<li class="c-navigation__list"><a class="c-navigation__link" href="#">Category 3</a></li>
+							<li class="c-navigation__list"><a class="c-navigation__link" href="#">More</a></li>
+						</ul>
+					</nav>
 					<hr class="c-keyline">
 					<h3 id="tables">
 						<span class="c-heading-charlie">Tables</span>
