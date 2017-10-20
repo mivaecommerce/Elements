@@ -1,60 +1,60 @@
-<div class="o-layout u-grids-1 u-grids-2--m">
-	<p class="o-layout__item">
-		<span class="u-text-underline">Default Shipping Address</span><br>
-		<mvt:if expr="NOT ISNULL l.settings:addressbook:address_ship:fname OR NOT ISNULL l.settings:addressbook:address_ship:lname">
-			&mvte:addressbook:address_ship:fname; &mvte:addressbook:address_ship:lname;<br>
-		</mvt:if>
-		<mvt:if expr="NOT ISNULL l.settings:addressbook:address_ship:comp">
-			&mvte:addressbook:address_ship:comp;<br>
-		</mvt:if>
-		<mvt:if expr="NOT ISNULL l.settings:addressbook:address_ship:addr1">
-			&mvte:addressbook:address_ship:addr1; <br>
-		</mvt:if>
-		<mvt:if expr="NOT ISNULL l.settings:addressbook:address_ship:addr2">
-			&mvte:addressbook:address_ship:addr2; <br>
-		</mvt:if>
-		<mvt:if expr="NOT ISNULL l.settings:addressbook:address_ship:city OR NOT ISNULL l.settings:addressbook:address_ship:state OR NOT ISNULL l.settings:addressbook:address_ship:zip">
-			<mvt:if expr="NOT ISNULL l.settings:addressbook:address_ship:city">&mvte:addressbook:address_ship:city;</mvt:if><mvt:if expr="NOT ISNULL l.settings:addressbook:address_ship:city AND NOT ISNULL l.settings:addressbook:address_ship:state">,</mvt:if>
-			<mvt:if expr="NOT ISNULL l.settings:addressbook:address_ship:state">&mvte:addressbook:address_ship:state;</mvt:if>
-			<mvt:if expr="NOT ISNULL l.settings:addressbook:address_ship:zip">&mvte:addressbook:address_ship:zip;</mvt:if>
-		</mvt:if>
-		<mvt:if expr="NOT ISNULL l.settings:addressbook:address_ship:cntry">
-			&nbsp;&mvte:addressbook:address_ship:cntry;<br>
-		</mvt:if>
-		<mvt:if expr="l.settings:addressbook:address_ship:resdntl">
-			Residential Address<br>
-		</mvt:if>
-		<mvt:if expr="NOT ISNULL l.settings:addressbook:address_ship:phone">
-			&mvte:addressbook:address_ship:phone;<br>
-		</mvt:if>
-	</p>
-	<p class="o-layout__item">
-		<span class="u-text-underline">Default Billing Address</span><br>
-		<mvt:if expr="NOT ISNULL l.settings:addressbook:address_bill:fname OR NOT ISNULL l.settings:addressbook:address_bill:lname">
-			&mvte:addressbook:address_bill:fname; &mvte:addressbook:address_bill:lname;<br>
-		</mvt:if>
-		<mvt:if expr="NOT ISNULL l.settings:addressbook:address_bill:comp">
-			&mvte:addressbook:address_bill:comp;<br>
-		</mvt:if>
-		<mvt:if expr="NOT ISNULL l.settings:addressbook:address_bill:addr1">
-			&mvte:addressbook:address_bill:addr1; <br>
-		</mvt:if>
-		<mvt:if expr="NOT ISNULL l.settings:addressbook:address_bill:addr2">
-			&mvte:addressbook:address_bill:addr2; <br>
-		</mvt:if>
-		<mvt:if expr="NOT ISNULL l.settings:addressbook:address_bill:city OR NOT ISNULL l.settings:addressbook:address_bill:state OR NOT ISNULL l.settings:addressbook:address_bill:zip">
-			<mvt:if expr="NOT ISNULL l.settings:addressbook:address_bill:city">&mvte:addressbook:address_bill:city;</mvt:if><mvt:if expr="NOT ISNULL l.settings:addressbook:address_bill:city AND NOT ISNULL l.settings:addressbook:address_bill:state">,</mvt:if>
-			<mvt:if expr="NOT ISNULL l.settings:addressbook:address_bill:state">&mvte:addressbook:address_bill:state;</mvt:if>
-			<mvt:if expr="NOT ISNULL l.settings:addressbook:address_bill:zip">&mvte:addressbook:address_bill:zip;</mvt:if>
-		</mvt:if>
-		<mvt:if expr="NOT ISNULL l.settings:addressbook:address_bill:cntry">
-			&nbsp;&mvte:addressbook:address_bill:cntry;<br>
-		</mvt:if>
-		<mvt:if expr="l.settings:addressbook:address_bill:resdntl">
-			Residential Address<br>
-		</mvt:if>
-		<mvt:if expr="NOT ISNULL l.settings:addressbook:address_bill:phone">
-			&mvte:addressbook:address_bill:phone;<br>
-		</mvt:if>
-	</p>
+<div class="o-layout u-grids-1 u-grids-2--m">
+	<p class="o-layout__item">
+		<span class="u-text-underline">Default Shipping Address</span><br>
+		<mvt:if expr="NOT ISNULL l.settings:addressbook:address_ship:fname OR NOT ISNULL l.settings:addressbook:address_ship:lname">
+			&mvte:addressbook:address_ship:fname; &mvte:addressbook:address_ship:lname;<br>
+		</mvt:if>
+		<mvt:if expr="NOT ISNULL l.settings:addressbook:address_ship:comp">
+			&mvte:addressbook:address_ship:comp;<br>
+		</mvt:if>
+		<mvt:if expr="NOT ISNULL l.settings:addressbook:address_ship:addr1">
+			&mvte:addressbook:address_ship:addr1; <br>
+		</mvt:if>
+		<mvt:if expr="NOT ISNULL l.settings:addressbook:address_ship:addr2">
+			&mvte:addressbook:address_ship:addr2; <br>
+		</mvt:if>
+		<mvt:if expr="NOT ISNULL l.settings:addressbook:address_ship:city OR NOT ISNULL l.settings:addressbook:address_ship:state OR NOT ISNULL l.settings:addressbook:address_ship:zip">
+			<mvt:if expr="NOT ISNULL l.settings:addressbook:address_ship:city">&mvte:addressbook:address_ship:city;</mvt:if><mvt:if expr="NOT ISNULL l.settings:addressbook:address_ship:city AND NOT ISNULL l.settings:addressbook:address_ship:state">,</mvt:if>
+			<mvt:if expr="NOT ISNULL l.settings:addressbook:address_ship:state">&mvte:addressbook:address_ship:state;</mvt:if>
+			<mvt:if expr="NOT ISNULL l.settings:addressbook:address_ship:zip">&mvte:addressbook:address_ship:zip;</mvt:if>
+		</mvt:if>
+		<mvt:if expr="NOT ISNULL l.settings:addressbook:address_ship:cntry">
+			&nbsp;&mvte:addressbook:address_ship:cntry;<br>
+		</mvt:if>
+		<mvt:if expr="l.settings:addressbook:address_ship:resdntl">
+			Residential Address<br>
+		</mvt:if>
+		<mvt:if expr="NOT ISNULL l.settings:addressbook:address_ship:phone">
+			&mvte:addressbook:address_ship:phone;<br>
+		</mvt:if>
+	</p>
+	<p class="o-layout__item">
+		<span class="u-text-underline">Default Billing Address</span><br>
+		<mvt:if expr="NOT ISNULL l.settings:addressbook:address_bill:fname OR NOT ISNULL l.settings:addressbook:address_bill:lname">
+			&mvte:addressbook:address_bill:fname; &mvte:addressbook:address_bill:lname;<br>
+		</mvt:if>
+		<mvt:if expr="NOT ISNULL l.settings:addressbook:address_bill:comp">
+			&mvte:addressbook:address_bill:comp;<br>
+		</mvt:if>
+		<mvt:if expr="NOT ISNULL l.settings:addressbook:address_bill:addr1">
+			&mvte:addressbook:address_bill:addr1; <br>
+		</mvt:if>
+		<mvt:if expr="NOT ISNULL l.settings:addressbook:address_bill:addr2">
+			&mvte:addressbook:address_bill:addr2; <br>
+		</mvt:if>
+		<mvt:if expr="NOT ISNULL l.settings:addressbook:address_bill:city OR NOT ISNULL l.settings:addressbook:address_bill:state OR NOT ISNULL l.settings:addressbook:address_bill:zip">
+			<mvt:if expr="NOT ISNULL l.settings:addressbook:address_bill:city">&mvte:addressbook:address_bill:city;</mvt:if><mvt:if expr="NOT ISNULL l.settings:addressbook:address_bill:city AND NOT ISNULL l.settings:addressbook:address_bill:state">,</mvt:if>
+			<mvt:if expr="NOT ISNULL l.settings:addressbook:address_bill:state">&mvte:addressbook:address_bill:state;</mvt:if>
+			<mvt:if expr="NOT ISNULL l.settings:addressbook:address_bill:zip">&mvte:addressbook:address_bill:zip;</mvt:if>
+		</mvt:if>
+		<mvt:if expr="NOT ISNULL l.settings:addressbook:address_bill:cntry">
+			&nbsp;&mvte:addressbook:address_bill:cntry;<br>
+		</mvt:if>
+		<mvt:if expr="l.settings:addressbook:address_bill:resdntl">
+			Residential Address<br>
+		</mvt:if>
+		<mvt:if expr="NOT ISNULL l.settings:addressbook:address_bill:phone">
+			&mvte:addressbook:address_bill:phone;<br>
+		</mvt:if>
+	</p>
 </div>

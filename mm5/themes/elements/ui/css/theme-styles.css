@@ -1,0 +1,149 @@
+/* ==========================================================================
+   THEME STYLE MODIFICATIONS
+   ========================================================================== */
+
+/**
+ * Set all your THEME styles in this file.
+ *
+ * Adding a Theme to a design is very straightforward as every component works
+ * like an extensible class. This allows you to add theme specific classes
+ * and/or override existing classes.
+ *
+ * NOTE: Any new classes created should follow the established coding
+ * standards for the framework. Theme specific classes should be prefixed by
+ * `.t-`.
+ *
+ * Why do it this way?
+ * By decoupling the theme styling from the default framework, you get the
+ * following benefits:
+ *		Keep the framework core library up-to-date
+ *		Updates to the core styles of the framework do not get overwritten when
+ *		extending the component.
+ *
+ *		End-user entry points remain untouched
+ *		End-users do not need to use any custom name that belongs only to the
+ *		theme.
+ */
+
+/* Site Header
+   =========================================== */
+.t-site-header {
+	margin-bottom: 1.5rem;
+	border-bottom: 1px solid #eaeaea;
+}
+
+	.t-site-header__top-navigation {
+		padding-top: 0.5em;
+		padding-bottom: 0.5em;
+		font-size: 0.8125rem;
+	}
+	
+		.t-site-header__message {
+			display: inline-block;
+			padding-bottom: 0.5em;
+			padding-left: 1em;
+		}
+		
+		@media (min-width: 48em) {
+			.t-site-header__message {
+				padding-bottom: 0;
+			}
+		}
+
+		.t-site-header__links a:hover {
+			text-decoration: none;
+			opacity: 0.75;
+			transition: 0.3s;
+		}
+
+		.t-site-header__basket-link-quantity {
+			margin-left: 0.25em;
+			padding: 0.25em 0.75em;
+		}
+
+		
+	.t-site-header__masthead {
+		padding-top: 1em;
+		padding-bottom: 1em;
+		font-size: 0.875rem;
+	}
+
+		.t-site-header__logo {
+			margin-bottom: 0;
+		}
+
+		.t-site-header__store-name {}
+
+		.t-site-header__store-tagline {}
+
+		.t-site-header__search-form {
+			position: relative;
+		}
+		
+		.t-site-header__search-form,
+		.t-site-header__search-form .c-form-list__item {
+			margin-bottom: 0;
+		}
+		
+
+		
+		
+
+/* Site Footer
+    =========================================== */
+.t-site-footer {
+	padding-top: 1rem;
+}
+
+	.t-site-footer__content,
+	.t-site-footer__disclaimer {
+		padding-top: 2em;
+		padding-bottom: 2em;
+	}
+
+	.t-site-footer__content .c-menu__link:not([class*=" u-icon-"]),
+	.t-site-footer__disclaimer {
+		font-size: 0.875rem;
+	}
+
+		.t-site-footer__disclaimer a {
+			color: #fff;
+		}
+
+	.t-global-footer-social-links .c-menu__link {
+		padding: 1em;
+	}
+
+	.t-global-footer-social-links .c-menu__link:hover {
+		text-decoration: none;
+		opacity: 0.75;
+	}
+	
+@media (min-width: 48em) {
+	.t-site-footer {
+		padding-top: 4rem;
+	}
+	
+		.t-site-footer__content,
+		.t-site-footer__disclaimer {
+			padding-top: 4em;
+			padding-bottom: 4em;
+		}
+}
+
+
+
+
+
+/* Storefront
+    =========================================== */
+.t-featured-products {
+	margin-bottom: 2rem;
+	padding-top: 3rem;
+}
+
+
+
+
+
+
