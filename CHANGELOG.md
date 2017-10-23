@@ -7,10 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## 1.0.0 - 2017-10-20
 ### Added
 - Theme Files `mm5/themes/elements/*`
+- CREDITS.md
 
 ### Changed
 - Updated Framework PKG
 - Updates to Page Templates
+- Updated README.md
 
 ## 0.2.0 - 2017-10-19
 ### Added

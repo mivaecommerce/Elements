@@ -14,6 +14,12 @@ git clone https://github.com/mivaecommerce/Elements.git
 
 You can also download Elements from the [Miva AppStore](https://apps.miva.com/elements-framework.html).
 
+#### Demonstration
+[http://elements.mivareadythemes.com/](http://elements.mivareadythemes.com/)
+
+#### Documentation
+[https://docs.miva.com/elements/index.html](https://docs.miva.com/elements/index.html)
+
 ## Features
 
 #### Extensible
