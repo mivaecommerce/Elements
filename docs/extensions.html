@@ -36,6 +36,28 @@
 					</p>
 					<hr class="c-keyline">
 
+					<h3 id="ajax-add-to-cart"><span class="c-heading-charlie">AJAX Add-to-Cart</span></h3>
+					<p>
+						The AJAX Add-to-Cart extension will add a product to the basket from the product page without
+						reloading the page. If you also have the Mini-Basket extension active, it will display when a
+						product has been successfully added. If the Mini-Basket extension is not active, a success
+						message will be displayed instead.
+					</p>
+					<p>AJAX Add-to-Cart come pre-installed with Elements, it just needs to be activated. To activate:</p>
+					<ol>
+						<li>Navigate to User Interface -> JavaScript Resources</li>
+						<li>Edit the source for <span class="x-inline-code">theme</span></li>
+						<li>
+							Uncomment the following:
+							<pre class="language-markup">
+								<code><!--
+									$.loadScript(theme_path + 'extensions/product-layout/ajax-add-to-cart.js');
+								--></code>
+							</pre>
+						</li>
+					</ol>
+					<hr class="c-keyline">
+
 					<h3 id="breadcrumbs">
 						<span class="c-heading-charlie">Breadcrumbs</span>
 						<code class="x-inline-code u-font-small">THEME_NAME/extensions/breadcrumbs/breadcrumbs.css</code>
@@ -508,6 +530,89 @@
 					</pre>
 					<hr class="c-keyline">
 
+					<h3 id="hero-slider"><span class="c-heading-charlie">Hero Slider</span></h3>
+					<p>
+						One of the most popular requests when it comes to creating a site is to replace the static hero
+						image with a carousel of images. Elements has this covered with Roundabout. To create a hero
+						slider, follow these steps:
+					</p>
+					<ol>
+						<li>Navigate to ReadyTheme -> Images</li>
+						<li>Add images and copy the item tags generated.</li>
+						<li>Navigate to ReadyTheme -> Content Sections</li>
+						<li>
+							Create a new ReadyTheme Content Section with the following code (replace placeholder image
+							tags with the ones you copied in the previous step):
+							<pre class="language-markup">
+								<code><!--
+									<section class="x-carousel" data-hook="hero-carousel">
+										<button class="x-carousel__button u-icon-triangle-left" data-hook="carousel__button-previous"></button>
+										<div class="x-carousel__container x-carousel--animate" data-hook="carousel__container">
+											<mvt:item name="readytheme" param="image( 'hero_image_01' )" />
+											<mvt:item name="readytheme" param="image( 'hero_image_02' )" />
+											<mvt:item name="readytheme" param="image( 'hero_image_03' )" />
+											<mvt:item name="readytheme" param="image( 'hero_image_04' )" />
+										</div>
+										<button class="x-carousel__button x-carousel__button-right u-icon-triangle-right" data-hook="carousel__button-next"></button>
+									</section>
+									<br>
+								--></code>
+							</pre>
+						</li>
+						<li>
+							Replace this code in the SFNT Page Template with the ReadyTheme Content item tag you created:
+							<pre class="language-markup">
+								<code><!--
+									<mvt:item name="readytheme" param="Load_Image('storefront_hero_image', g.storefront_hero_image)" />
+									<mvt:if expr="g.storefront_hero_image:image">
+										<section class="o-layout">
+											<div class="o-layout__item">
+												<mvt:if expr="g.storefront_hero_image:link_type NE 'N'">
+													<a class="x-hero" href="&mvt:global:storefront_hero_image:link_dest;" target="&mvt:global:storefront_hero_image:link_targ;">
+														<img src="&mvt:global:storefront_hero_image:image;" alt="&mvt:global:storefront_hero_image:image_alt;">
+													</a>
+												<mvt:else>
+													<span class="x-hero">
+														<mvt:item name="readytheme" param="image( 'storefront_hero_image' )" />
+													</span>
+												</mvt:if>
+											</div>
+										</section>
+										<br>
+									</mvt:if>
+								--></code>
+							</pre>
+						</li>
+						<li>Navigate to User Interface -> CSS Resources</li>
+						<li>
+							Edit <span class="x-inline-code">extensions</span> and add <span class="x-inline-code">@import "carousel/roundabout.css";</span>
+							to the bottom of the import list.
+						</li>
+						<li>Navigate to User Interface -> JavaScript Resources</li>
+						<li>
+							Edit <span class="x-inline-code">theme</span> and, within the <span class="x-inline-code">jsSFNT</span>
+							function, add this code:
+							<pre class="language-markup">
+								<code><!--
+									$.loadScript(theme_path + 'extensions/carousel/roundabout.js', function () {
+										$.hook('hero-carousel').roundabout();
+									});
+								--></code>
+							</pre>
+							If you would like the carousel to automatically start, you can pass that as an option:
+							<pre class="language-markup">
+								<code><!--
+									$.loadScript(theme_path + 'extensions/carousel/roundabout.js', function () {
+										$.hook('hero-carousel').roundabout({
+											autoStart: true
+										});
+									});
+								--></code>
+							</pre>
+						</li>
+					</ol>
+					<hr class="c-keyline">
+
 					<h3 id="messages">
 						<span class="c-heading-charlie">Messages</span>
 						<code class="x-inline-code u-font-small">THEME_NAME/extensions/messages/messages.css</code>
@@ -656,10 +761,39 @@
 					</pre>
 					<hr class="c-keyline">
 
-					<h3 id="mini-basket">
-						<span class="c-heading-charlie">Mini-Basket</span>
-						<code class="x-inline-code u-font-small">THEME_NAME/extensions/mini-basket/mini-basket.css</code>
-					</h3>
+					<h3 id="mini-basket"><span class="c-heading-charlie">Mini-Basket</span></h3>
+					<p>
+						The Mini-Basket extension will display the contents of the Miva mini-basket item in an off-canvas
+						overlay which will transition in from the right edge of the browser.
+					</p>
+					<p>Mini-Basket come pre-installed with Elements, it just needs to be activated. To activate:</p>
+					<ol>
+						<li>Navigate to User Interface -> CSS Resources</li>
+						<li>Edit the source for <span class="x-inline-code">extensions</span></li>
+						<li>
+							Uncomment the following:
+							<pre class="language-markup">
+								<code><!--
+									 @import "mini-basket/mini-basket.css";
+								--></code>
+							</pre>
+						</li>
+						<li>Navigate to User Interface -> JavaScript Resources</li>
+						<li>Edit the source for <span class="x-inline-code">theme</span></li>
+						<li>
+							Uncomment the following:
+							<pre class="language-markup">
+								<code><!--
+									$.loadScript(theme_path + 'extensions/mini-basket/mini-basket.js', function () {
+										miniBasket.init();
+									});
+								--></code>
+							</pre>
+						</li>
+						<li>Navigate to ReadyTheme -> Content Sections</li>
+						<li>Activate <span class="x-inline-code">mini_basket</span></li>
+					</ol>
+					<p><code class="x-inline-code u-font-small">THEME_NAME/extensions/mini-basket/mini-basket.css</code></p>
 					<pre class="language-markup">
 						<code><!--
 							/**
@@ -1023,6 +1157,96 @@
 					<h3 id="navigation">
 						<span class="c-heading-charlie">Navigation <span class="c-heading--subheading u-text-bold u-text-uppercase u-color-red">Coming Soon</span> </span>
 					</h3>
+					<hr class="c-keyline">
+					
+					<h3 id="product-carousel"><span class="c-heading-charlie">Product Carousel</span></h3>
+					<p>
+						ReadyTheme Product Listings are a great way to create featured product displays and the like.
+						Sometimes though, it is nice to display more products and allow customers to scroll through
+						them. To create a product carousel, follow these steps:
+					</p>
+					<ol>
+						<li>Navigate to ReadyTheme -> Product Listings</li>
+						<li>
+							Edit <span class="x-inline-code">featured_products</span> and replace the code with the
+							following:
+							<pre class="language-markup">
+								<code><!--
+									<section class="x-product-list x-product-list--carousel">
+										<mvt:do name="l.result" file="g.Module_Library_DB" value="Category_Load_Code(l.settings:readytheme:productlisting:prod_cat, l.settings:product_list_category)" />
+										<mvt:assign name="l.uri:store_id" value="g.Store:id" />
+										<mvt:assign name="l.uri:screen" value="''" />
+										<mvt:assign name="l.uri:page_id" value="0" />
+										<mvt:assign name="l.uri:cat_id" value="l.settings:product_list_category:id" />
+										<mvt:assign name="l.uri:product_id" value="0" />
+										<mvt:do file="g.Module_Feature_URI_DB" name="l.have_uri" value="URI_Load_Item_Canonical(l.uri, l.settings:canonical_uri)" />
+										<mvt:comment>
+											The above code will load the category code used to pull the category name and then load the cannonical URI.
+										</mvt:comment>
+										<h4 class="c-heading-delta u-text-bold u-text-center u-text-uppercase x-product-list__heading">&mvt:product_list_category:name;</h4>
+										<div class="x-carousel" data-hook="product-carousel">
+											<button class="x-carousel__button u-icon-triangle-left" data-hook="carousel__button-previous"></button>
+											<div class="x-carousel__container x-carousel--animate" data-hook="carousel__container">
+												<mvt:foreach iterator="product" array="readytheme:products">
+													<div class="o-layout__item u-width-6 u-width-3--m u-text-center x-product-list__item">
+														<a class="u-block x-product-list__link" href="&mvte:product:link;" title="&mvte:product:name;">
+															<img class="x-product-list__image" src="&mvte:product:imagetypes:main;" alt="&mvte:product:name;">
+															<strong class="x-product-list__name">&mvte:product:name;</strong>
+															<mvt:if expr="l.settings:product:base_price GT l.settings:product:price">
+																<span class="x-product-list__price u-color-gray-30">Was: <s>&mvt:product:formatted_base_price;</s></span>
+																<span class="x-product-list__price u-text-bold u-color-red">Now: &mvt:product:formatted_price;</span>
+															<mvt:else>
+																<span class="x-product-list__price">&mvt:product:formatted_price;</span>
+															</mvt:if>
+														</a>
+													</div>
+												</mvt:foreach>
+											</div>
+											<button class="x-carousel__button x-carousel__button-right u-icon-triangle-right" data-hook="carousel__button-next"></button>
+										</div>
+										<p class="o-layout__item u-width-12 u-text-center x-product-list__action">
+											<a class="c-button c-button--huge u-bg-gray-50 u-color-white u-font-small u-text-bold u-text-uppercase" href="&mvt:canonical_uri:uri;">Shop All</a>
+										</p>
+									</section>
+									<br>
+								--></code>
+							</pre>
+							<em>Alternately, you can create a new product listing, modify a related products list, or
+							other similar lists.</em>
+						</li>
+						<li>Navigate to User Interface -> CSS Resources</li>
+						<li>
+							Edit <span class="x-inline-code">extensions</span> and add <span class="x-inline-code">@import "carousel/roundabout.css";</span>
+							to the bottom of the import list.
+						</li>
+						<li>Navigate to User Interface -> JavaScript Resources</li>
+						<li>
+							Edit <span class="x-inline-code">theme</span> and, within the <span class="x-inline-code">jsSFNT</span>
+							function, add this code:
+							<pre class="language-markup">
+								<code><!--
+									$.loadScript(theme_path + 'extensions/carousel/roundabout.js', function () {
+										$.hook('product-carousel').roundabout({
+											group: true
+										});
+									});
+								--></code>
+							</pre>
+							If you would like the carousel to automatically start, you can pass that as an option:
+							<pre class="language-markup">
+								<code><!--
+									$.loadScript(theme_path + 'extensions/carousel/roundabout.js', function () {
+										$.hook('product-carousel').roundabout({
+											autoStart: true,
+											group: true
+										});
+									});
+								--></code>
+							</pre>
+							<em>If you are adding/modifying a product list on a different page, you will need to
+							initialize the function there instead.</em>
+						</li>
+					</ol>
 					<hr class="c-keyline">
 					
 					<h3 id="search-preview">
