@@ -494,10 +494,28 @@
 						<code><!--
 							<mvt:item name="readytheme" param="Load_Image('storefront_hero_image', g.storefront_hero_image)" />
 							<mvt:if expr="g.storefront_hero_image:image">
+								<mvt:if expr="g.storefront_hero_image:link_type NE 'N'">
+									<mvt:if expr="g.storefront_hero_image:link_type EQ 'G'">
+										<mvt:do file="g.Module_Feature_TUI_DB" name="l.success" value="Page_Load_Code( g.storefront_hero_image:link_dest, l.settings:rt_g )" />
+										<mvt:do file="g.Module_Feature_URI_UT" name="g.storefront_hero_image:uri" value="Store_Page_URL(l.settings:rt_g, NULL)" />
+									<mvt:elseif expr="g.storefront_hero_image:link_type EQ 'C'">
+										<mvt:do file="g.Module_Library_DB" name="l.success" value="Category_Load_Code( g.storefront_hero_image:link_dest, l.settings:rt_c )" />
+										<mvt:do file="g.Module_Feature_URI_UT" name="g.storefront_hero_image:uri" value="Store_Category_URL(l.settings:rt_c, NULL)" />
+									<mvt:elseif expr="g.storefront_hero_image:link_type EQ 'P'">
+										<mvt:do file="g.Module_Library_DB" name="l.success" value="Product_Load_Code( g.storefront_hero_image:link_dest, l.settings:rt_p )" />
+										<mvt:do file="g.Module_Feature_URI_UT" name="g.storefront_hero_image:uri" value="Store_Product_URL(l.settings:rt_p, NULL)" />
+									<mvt:elseif expr="g.storefront_hero_image:link_type EQ 'U'">
+										<mvt:assign name="g.storefront_hero_image:uri" value="g.storefront_hero_image:link_dest" />
+									<mvt:else>
+										<mvt:assign name="g.storefront_hero_image:uri" value="NULL" />
+									</mvt:if>
+								<mvt:else>
+									<mvt:assign name="g.storefront_hero_image:uri" value="NULL" />
+								</mvt:if>
 								<section class="o-layout">
 									<div class="o-layout__item">
-										<mvt:if expr="g.storefront_hero_image:link_type NE 'N'">
-											<a class="x-hero" href="&mvt:global:storefront_hero_image:link_dest;" target="&mvt:global:storefront_hero_image:link_targ;">
+										<mvt:if expr="g.storefront_hero_image:link_dest">
+											<a class="x-hero" href="&mvt:global:storefront_hero_image:uri;" target="&mvt:global:storefront_hero_image:link_targ;">
 												<img src="&mvt:global:storefront_hero_image:image;" alt="&mvt:global:storefront_hero_image:image_alt;">
 											</a>
 										<mvt:else>
@@ -1155,8 +1173,908 @@
 					<hr class="c-keyline">
 
 					<h3 id="navigation">
-						<span class="c-heading-charlie">Navigation <span class="c-heading--subheading u-text-bold u-text-uppercase u-color-red">Coming Soon</span> </span>
+						<span class="c-heading-charlie">Navigation</span>
 					</h3>
+					<p>
+						Elements ships with three expanded navigation patterns; drop-down, overflow, and overlay. To
+						utilize one of these methods, follow these steps:
+					</p>
+					<ol>
+						<li>Navigate to User Interface -> CSS Resources</li>
+						<li>
+							Edit <span class="x-inline-code">extensions</span> and add the <span class="x-inline-code">@import</span>
+							link which corresponds to the navigation pattern you are using, to the bottom of the
+							import list; i.e. <span class="x-inline-code">@import "navigation/overlay-navigation.css";</span>.
+						</li>
+						<li>Navigate to User Interface -> JavaScript Resources</li>
+						<li>
+							Edit <span class="x-inline-code">theme</span> and, within the <span class="x-inline-code">init</span>
+							function, add the code  which corresponds to the navigation pattern you are using:
+							<pre class="language-markup">
+								<code><!--
+									$.loadScript(theme_path + 'extensions/navigation/drop-down-navigation.js', function () {
+										$.hook('has-drop-down').dropDownNavigation();
+									});
+								--></code>
+							</pre>
+							<pre class="language-markup">
+								<code><!--
+									$.loadScript(theme_path + 'extensions/navigation/overflow-navigation.js', function () {
+										$.hook('has-child').overflowNavigation();
+									});
+								--></code>
+							</pre>
+							<pre class="language-markup">
+								<code><!--
+									$.loadScript(theme_path + 'extensions/navigation/overlay-navigation.js');
+								--></code>
+							</pre>
+						</li>
+					</ol>
+					<p>
+						<span class="c-heading-delta">Drop-Down Navigation</span>
+						<code class="x-inline-code u-font-small">THEME_NAME/extensions/navigation/drop-down-navigation.css</code>
+					</p>
+					<pre class="language-markup">
+						<code><!--
+							/* ==========================================================================
+							   EXTENSIONS / NAVIGATION / DROP DOWN NAVIGATION
+							   ========================================================================== */
+							
+							.x-drop-down-navigation .c-navigation__list.has-drop-down > .c-navigation__link::after {
+								display: inline-block;
+								margin-left: 0.25em;
+								font-family: "ReadyTheme Icons", sans-serif;
+								-webkit-font-smoothing: antialiased;
+								-moz-osx-font-smoothing: grayscale;
+								font-variant: normal;
+								font-weight: normal;
+								line-height: 1;
+								speak: none;
+								text-transform: none;
+								content: "\3d";
+							}
+							
+							
+							.x-drop-down-navigation__row .c-navigation__row {
+								display: none;
+								width: auto;
+								position: absolute;
+								white-space: nowrap;
+								z-index: 100;
+							}
+							
+								.x-drop-down-navigation__row .c-navigation__row:nth-child(2) .c-navigation__list {
+									text-align: left;
+								}
+							
+								.x-drop-down-navigation__row .c-navigation__row:nth-child(2) .c-navigation__row:last-of-type {
+									top: 0;
+									left: 100%;
+									z-index: 200;
+								}
+							
+							.x-drop-down-navigation .c-navigation__list:hover > .c-navigation__row {
+								display: table;
+								box-shadow: 1px 1px 0.25em 0 rgba(15, 15, 15, 0.5);
+							}
+							
+								.x-drop-down-navigation__row .is-off-screen .c-navigation__row:nth-child(2) .c-navigation__row {
+									left: auto;
+									right: 100%;
+									box-shadow: -1px 1px 0.25em 0 rgba(15, 15, 15, 0.5);
+								}
+							
+								.x-drop-down-navigation__row .c-navigation__row:nth-child(2) .c-navigation__row .c-navigation__link,
+								.x-drop-down-navigation__row .c-navigation__row:nth-child(2) .c-navigation__row:last-of-type .c-navigation__link {
+									padding-left: 1em;
+								}
+						--></code>
+					</pre>
+					<p><code class="x-inline-code u-font-small">THEME_NAME/extensions/navigation/drop-down-navigation.html</code></p>
+					<pre class="language-markup">
+						<code><!--
+							<nav class="c-navigation u-text-uppercase x-drop-down-navigation" data-hook="drop-down-navigation">
+								<input id="&mvte:readytheme:code;" class="c-navigation__trigger" type="checkbox">
+								<label class="c-navigation__label" for="&mvte:readytheme:code;">Drop-Down Menu</label>
+								<ul class="c-navigation__row x-drop-down-navigation__row">
+									<mvt:foreach iterator="navigationitem" array="readytheme:navigationitems">
+										<mvt:if expr="NOT ISNULL l.settings:navigationitem:items">
+											<mvt:assign name="l.settings:has:children" value="'has-drop-down' $ asciichar(34) $ ' data-hook=' $ asciichar(34) $ 'has-drop-down'"/>
+										<mvt:else>
+											<mvt:assign name="l.settings:has:children" value="''"/>
+										</mvt:if>
+										<li class="c-navigation__list &mvt:has:children;">
+											<a class="c-navigation__link" href="&mvt:navigationitem:url;">&mvt:navigationitem:name;</a>
+											<mvt:if expr="NOT ISNULL l.settings:navigationitem:items">
+												<ul class="c-navigation__row">
+													<mvt:assign name="l.settings:has:children" value="''"/>
+													<mvt:foreach iterator="navigationitem_level2" array="navigationitem:items">
+														<mvt:if expr="NOT ISNULL l.settings:navigationitem_level2:items">
+															<mvt:assign name="l.settings:has:children" value="'has-drop-down'"/>
+														<mvt:else>
+															<mvt:assign name="l.settings:has:children" value="''"/>
+														</mvt:if>
+														<li class="c-navigation__list &mvt:has:children;">
+															<a class="c-navigation__link" href="&mvt:navigationitem_level2:url;">&mvt:navigationitem_level2:name;</a>
+															<mvt:if expr="NOT ISNULL l.settings:navigationitem_level2:items">
+																<ul class="c-navigation__row">
+																	<mvt:foreach iterator="navigationitem_level3" array="navigationitem_level2:items">
+																		<li><a class="c-navigation__link" href="&mvt:navigationitem_level3:url;">&mvt:navigationitem_level3:name;</a></li>
+																	</mvt:foreach>
+																</ul>
+															</mvt:if>
+														</li>
+													</mvt:foreach>
+												</ul>
+											</mvt:if>
+										</li>
+									</mvt:foreach>
+								</ul>
+							</nav>
+						--></code>
+					</pre>
+					<p><code class="x-inline-code u-font-small">THEME_NAME/extensions/navigation/drop-down-navigation.js</code></p>
+					<pre class="language-markup">
+						<code><!--
+							(function ($, window, document) {
+								'use strict';
+							
+								/**
+								 * Double Tap To Go [http://osvaldas.info/drop-down-navigation-responsive-and-touch-friendly]
+								 * By: Osvaldas Valutis [http://www.osvaldas.info]
+								 * License: MIT
+								 */
+								$.fn.doubleTapToGo = function () {
+									if ('ontouchstart' in window) {
+										this.each(function () {
+											var curItem = false;
+							
+											$(this).on('click', function (event) {
+												var item = $(this);
+							
+												if (item[0] !== curItem[0]) {
+													event.preventDefault();
+													curItem = item;
+												}
+											});
+							
+											$(document).on('click', function (event) {
+												var resetItem = true,
+													parents = $(event.target).parents();
+							
+												for (var i = 0; i < parents.length; i++) {
+													if (parents[i] === curItem[0]) {
+														resetItem = false;
+													}
+												}
+												if (resetItem) {
+													curItem = false;
+												}
+											});
+										});
+									}
+							
+									return this;
+								};
+							
+							
+								/**
+								 * This function works if the element, or its parent, have been hidden via JavaScript, and can either
+								 * retrieve inner or outer dimensions as well as returning the offset values. The function is called
+								 * directly on the object and will insert a clone just after the original element making it possible
+								 * for the clone to maintain inherited dimensions.
+								 *
+								 * @param outer
+								 * @returns {*}
+								 *
+								 * element width: $(ELEMENT).getRealDimensions().width;
+								 * element outerWidth: $(ELEMENT).getRealDimensions(true).width;
+								 * element height: $(ELEMENT).getRealDimensions().height;
+								 * element outerHeight: $(ELEMENT).getRealDimensions(true).height;
+								 * element offsetTop: $(ELEMENT).getRealDimensions().offsetTop;
+								 * element offsetLeft: $(ELEMENT).getRealDimensions().offsetLeft;
+								 */
+								$.fn.getRealDimensions = function (outer) {
+									var $this = $(this);
+							
+									if ($this.length === 0) {
+										return false;
+									}
+							
+									var $clone = $this.clone().css(
+										{
+											'display': 'block',
+											'visibility': 'hidden'
+										}
+									).insertAfter($this);
+							
+									var result = {
+										width: (outer) ? $clone.outerWidth() : $clone.innerWidth(),
+										height: (outer) ? $clone.outerHeight() : $clone.innerHeight(),
+										offsetTop: $clone.offset().top,
+										offsetLeft: $clone.offset().left
+									};
+							
+									$clone.remove();
+									return result;
+								};
+							
+							
+								/**
+								 * This function will check if navigation elements will be rendered outside
+								 * of the visible area. If they will be, a class is added to the parent
+								 * element which will change the render direction. You can pass a jQuery
+								 * object as the `container` parameter to have the visible area set to
+								 * something other than the documentElement.
+								 *
+								 * @param container
+								 */
+								$.fn.setOffsetDirection = function (container) {
+									var triggerElement = $(this);
+							
+									triggerElement.on('mouseenter', function (e) {
+										var parentElement = $(this),
+											childElement = parentElement.find('ul').first(),
+											grandchildElement = childElement.find('ul').first(),
+											childOffsetWidth = childElement.offset().left + childElement.width(),
+											documentWidth = container ? container.outerWidth() : document.documentElement.clientWidth;
+							
+										if (grandchildElement) {
+											childOffsetWidth = childOffsetWidth + grandchildElement.getRealDimensions().width;
+										}
+							
+										var isEntirelyVisible = (childOffsetWidth <= documentWidth);
+							
+										if (!isEntirelyVisible) {
+											//console.log('NOT In the viewport!');
+											parentElement.addClass('is-off-screen');
+										}
+										else {
+											//console.log('In the viewport!');
+											parentElement.removeClass('is-off-screen');
+										}
+									});
+									return this;
+								};
+							
+							
+								/**
+								 * This function is the compiled call for all the functions contained in this extension. You can pass a jQuery
+								 * object as the `container` parameter to have the visible area set to something other than the documentElement.
+								 *
+								 * Example: $(ELEMENT).dropDownNavigation();
+								 *          $(ELEMENT).dropDownNavigation($(CONTAINER_ELEMENT));
+								 *
+								 * @param container
+								 */
+								$.fn.dropDownNavigation = function (container) {
+									return this.doubleTapToGo().setOffsetDirection(container);
+								};
+							})(jQuery, window, document);
+						--></code>
+					</pre>
+					<br>
+					<p>
+						<span class="c-heading-delta">Overflow Navigation</span>
+						<code class="x-inline-code u-font-small">THEME_NAME/extensions/navigation/overflow-navigation.css</code>
+					</p>
+					<pre class="language-markup">
+						<code><!--
+							/* ==========================================================================
+							   EXTENSIONS / NAVIGATION / OVERFLOW NAVIGATION
+							   ========================================================================== */
+							
+							.x-overflow-navigation {
+								display: flex;
+								align-items: center;
+								position: relative;
+								visibility: hidden;
+							}
+							
+							.x-overflow-navigation.is-loaded {
+								visibility: visible;
+							}
+							
+								.x-overflow-navigation__row {
+									display: flex;
+									flex: 1;
+									flex-wrap: nowrap;
+									justify-content: flex-end;
+								}
+							
+									.x-overflow-navigation .c-navigation__list {
+										position: relative;
+										flex: none;
+										text-align: left;
+									}
+							
+										.x-overflow-navigation .c-navigation__list.has-child > .c-navigation__link::after {
+											display: inline-block;
+											margin-left: 0.25em;
+											font-family: "ReadyTheme Icons", sans-serif;
+											-webkit-font-smoothing: antialiased;
+											-moz-osx-font-smoothing: grayscale;
+											font-variant: normal;
+											font-weight: normal;
+											line-height: 1;
+											speak: none;
+											text-transform: none;
+											content: "\3d";
+										}
+							
+										.x-overflow-navigation__row .c-navigation__row {
+											display: none;
+											width: auto;
+											position: absolute;
+											white-space: nowrap;
+											z-index: 100;
+										}
+							
+											.x-overflow-navigation__row .c-navigation__row:nth-child(2) .c-navigation__list {
+												text-align: left;
+											}
+							
+											.x-overflow-navigation__row .c-navigation__row:nth-child(2) .c-navigation__row:last-of-type {
+												top: 0;
+												left: 100%;
+												z-index: 200;
+											}
+							
+										.x-overflow-navigation .c-navigation__list:hover > .c-navigation__row {
+											display: table;
+											box-shadow: 1px 1px 0.25em 0 rgba(15, 15, 15, 0.5);
+										}
+							
+											.x-overflow-navigation__row .is-off-screen .c-navigation__row:nth-child(2) .c-navigation__row {
+												left: auto;
+												right: 100%;
+												box-shadow: -1px 1px 0.25em 0 rgba(15, 15, 15, 0.5);
+											}
+							
+											.x-overflow-navigation__row .c-navigation__row:nth-child(2) .c-navigation__row .c-navigation__link,
+											.x-overflow-navigation__row .c-navigation__row:nth-child(2) .c-navigation__row:last-of-type .c-navigation__link {
+												padding-left: 1em;
+											}
+							
+											.x-overflow-navigation__row .c-navigation__row:nth-child(2)  .c-navigation__link:hover {
+												background-color: #eaeaea;
+												box-shadow: none;
+												transition: background-color ease-in 0.2s;
+											}
+							
+							
+								.x-overflow-navigation__trigger {
+									padding: 0.5em 1em;
+									align-self: stretch;
+									font-size: 0.9rem;
+									font-weight: bold;
+									background: #c8c8c8;
+									border: 0;
+									cursor: pointer;
+									outline: 0;
+									transition: all .4s ease-out;
+								}
+							
+								.x-overflow-navigation__trigger.is-hidden {
+									width: 0;
+									padding: 0;
+									overflow: hidden;
+									transition: none;
+								}
+							
+								.x-overflow-navigation__group {
+									width: 100vw;
+									position: absolute;
+									top: 100%;
+									right: 0;
+									list-style: none;
+									box-shadow: 0 0.25em 0.25em 0 rgba(156, 156, 156, 0.5);
+									outline: 1px solid rgba(156, 156, 156, 0.5);
+									z-index: 200;
+								}
+							
+									@media (min-width: 40em) {
+										.x-overflow-navigation__group {
+											width: 50vw;
+										}
+									}
+							
+									@media (min-width: 48em) {
+										.x-overflow-navigation__group {
+											width: auto;
+										}
+									}
+							
+								.x-overflow-navigation__group.is-hidden {
+									display: none;
+								}
+							
+									.x-overflow-navigation__group .c-navigation__list:hover > .c-navigation__row {
+										display: none;
+									}
+							
+									.x-overflow-navigation__group .c-navigation__link {
+										padding-top: 1em;
+										padding-bottom: 1em;
+									}
+							
+									.x-overflow-navigation__group .c-navigation__link:hover {
+										background-color: #eaeaea;
+										box-shadow: none;
+										transition: background-color ease-in 0.2s;
+									}
+						--></code>
+					</pre>
+					<p><code class="x-inline-code u-font-small">THEME_NAME/extensions/navigation/overflow-navigation.html</code></p>
+					<pre class="language-markup">
+						<code><!--
+							<nav class="c-navigation u-text-uppercase x-overflow-navigation" data-hook="overflow-navigation">
+								<ul class="c-navigation__row x-overflow-navigation__row" data-hook="overflow-navigation__row">
+									<mvt:foreach iterator="navigationitem" array="readytheme:navigationitems">
+										<mvt:if expr="NOT ISNULL l.settings:navigationitem:items">
+											<mvt:assign name="l.settings:has:children" value="'has-child' $ asciichar(34) $ ' data-hook=' $ asciichar(34) $ 'has-child'"/>
+										<mvt:else>
+											<mvt:assign name="l.settings:has:children" value="''"/>
+										</mvt:if>
+										<li class="c-navigation__list &mvt:has:children;">
+											<a class="c-navigation__link" href="&mvt:navigationitem:url;">&mvt:navigationitem:name;</a>
+											<mvt:if expr="NOT ISNULL l.settings:navigationitem:items">
+												<ul class="c-navigation__row">
+													<mvt:assign name="l.settings:has:children" value="''"/>
+													<mvt:foreach iterator="navigationitem_level2" array="navigationitem:items">
+														<mvt:if expr="NOT ISNULL l.settings:navigationitem_level2:items">
+															<mvt:assign name="l.settings:has:children" value="'has-child'"/>
+														<mvt:else>
+															<mvt:assign name="l.settings:has:children" value="''"/>
+														</mvt:if>
+														<li class="c-navigation__list &mvt:has:children;">
+															<a class="c-navigation__link" href="&mvt:navigationitem_level2:url;">&mvt:navigationitem_level2:name;</a>
+															<mvt:if expr="NOT ISNULL l.settings:navigationitem_level2:items">
+																<ul class="c-navigation__row">
+																	<mvt:foreach iterator="navigationitem_level3" array="navigationitem_level2:items">
+																		<li><a class="c-navigation__link" href="&mvt:navigationitem_level3:url;">&mvt:navigationitem_level3:name;</a></li>
+																	</mvt:foreach>
+																</ul>
+															</mvt:if>
+														</li>
+													</mvt:foreach>
+												</ul>
+											</mvt:if>
+										</li>
+									</mvt:foreach>
+								</ul>
+								<button class="x-overflow-navigation__trigger is-hidden" data-hook="overflow-navigation__trigger">More</button>
+								<ul class="x-overflow-navigation__group is-hidden" data-hook="overflow-navigation__group"></ul>
+							</nav>
+						--></code>
+					</pre>
+					<p><code class="x-inline-code u-font-small">THEME_NAME/extensions/navigation/overflow-navigation.js</code></p>
+					<pre class="language-markup">
+						<code><!--
+							/**
+							 * This is a modified version of the GreedyNav script created by Luke Jackson.
+							 * https://github.com/lukejacksonn/GreedyNav
+							 * MIT License
+							 */
+							
+							(function ($, window, document) {
+								'use strict';
+							
+								var $overflowNavigation = $.hook('overflow-navigation'),
+									$displayButton = $.hook('overflow-navigation__trigger'),
+									$visibleLinks = $.hook('overflow-navigation__row'),
+									$hiddenLinks = $.hook('overflow-navigation__group'),
+									numOfItems = 0,
+									totalSpace = 0,
+									closingTime = 1000,
+									breakWidths = [],
+									availableSpace,
+									numOfVisibleItems,
+									requiredSpace,
+									timer;
+							
+								$visibleLinks.children().each(function () {
+									totalSpace += $(this).width(true);
+									numOfItems += 1;
+									breakWidths.push(totalSpace);
+								});
+							
+								$.fn.checkNavigationOverflow = function () {
+									// Get instant state
+									availableSpace = $visibleLinks.width() - (parseFloat($visibleLinks.css('font-size')) * 2.5);
+									numOfVisibleItems = $visibleLinks.children().length;
+									requiredSpace = breakWidths[numOfVisibleItems - 1];
+							
+									// There is not enough space
+									if (requiredSpace > availableSpace) {
+										$visibleLinks.children().last().prependTo($hiddenLinks);
+										numOfVisibleItems -= 1;
+										$overflowNavigation.addClass('is-loaded');
+										this.checkNavigationOverflow();
+									}// There is more than enough space
+									else if (availableSpace > breakWidths[numOfVisibleItems]) {
+										$hiddenLinks.children().first().appendTo($visibleLinks);
+										numOfVisibleItems += 1;
+										$overflowNavigation.addClass('is-loaded');
+										this.checkNavigationOverflow();
+									}
+							
+							
+									// Update the button accordingly
+									if (numOfVisibleItems === numOfItems) {
+										$displayButton.addClass('is-hidden');
+									}
+									else {
+										if (numOfVisibleItems >= 1) {
+											$displayButton.text('More');
+										}
+										else {
+											$displayButton.text('Menu');
+										}
+							
+										$displayButton.removeClass('is-hidden');
+									}
+							
+									return this;
+								};
+							
+							
+								/**
+								 * Double Tap To Go [http://osvaldas.info/drop-down-navigation-responsive-and-touch-friendly]
+								 * By: Osvaldas Valutis [http://www.osvaldas.info]
+								 * License: MIT
+								 */
+								$.fn.doubleTapToGo = function () {
+									if ('ontouchstart' in window) {
+										this.each(function () {
+											var curItem = false;
+							
+											$(this).on('click', function (event) {
+												var item = $(this);
+							
+												if (item[0] !== curItem[0]) {
+													event.preventDefault();
+													curItem = item;
+												}
+											});
+							
+											$(document).on('click', function (event) {
+												var resetItem = true,
+													parents = $(event.target).parents();
+							
+												for (var i = 0; i < parents.length; i++) {
+													if (parents[i] === curItem[0]) {
+														resetItem = false;
+													}
+												}
+												if (resetItem) {
+													curItem = false;
+												}
+											});
+										});
+									}
+							
+									return this;
+								};
+							
+							
+								/**
+								 * This function works if the element, or its parent, have been hidden via JavaScript, and can either
+								 * retrieve inner or outer dimensions as well as returning the offset values. The function is called
+								 * directly on the object and will insert a clone just after the original element making it possible
+								 * for the clone to maintain inherited dimensions.
+								 *
+								 * @param outer
+								 * @returns {*}
+								 *
+								 * element width: $(ELEMENT).getRealDimensions().width;
+								 * element outerWidth: $(ELEMENT).getRealDimensions(true).width;
+								 * element height: $(ELEMENT).getRealDimensions().height;
+								 * element outerHeight: $(ELEMENT).getRealDimensions(true).height;
+								 * element offsetTop: $(ELEMENT).getRealDimensions().offsetTop;
+								 * element offsetLeft: $(ELEMENT).getRealDimensions().offsetLeft;
+								 */
+								$.fn.getRealDimensions = function (outer) {
+									var $this = $(this);
+							
+									if ($this.length === 0) {
+										return false;
+									}
+							
+									var $clone = $this.clone().css(
+										{
+											'display': 'block',
+											'visibility': 'hidden'
+										}
+										).insertAfter($this);
+							
+									var result = {
+										width: (outer) ? $clone.outerWidth() : $clone.innerWidth(),
+										height: (outer) ? $clone.outerHeight() : $clone.innerHeight(),
+										offsetTop: $clone.offset().top,
+										offsetLeft: $clone.offset().left
+									};
+							
+									$clone.remove();
+									return result;
+								};
+							
+							
+								/**
+								 * This function will check if navigation elements will be rendered outside
+								 * of the visible area. If they will be, a class is added to the parent
+								 * element which will change the render direction. You can pass a jQuery
+								 * object as the `container` parameter to have the visible area set to
+								 * something other than the documentElement.
+								 *
+								 * @param container
+								 */
+								$.fn.setOffsetDirection = function (container) {
+									var triggerElement = $(this);
+							
+									triggerElement.on('mouseenter', function (e) {
+										var parentElement = $(this),
+											childElement = parentElement.find('ul').first(),
+											grandchildElement = childElement.find('ul').first(),
+											childOffsetWidth = childElement.offset().left + childElement.width(),
+											documentWidth = container ? container.outerWidth() : document.documentElement.clientWidth;
+							
+										if (grandchildElement) {
+											childOffsetWidth = childOffsetWidth + grandchildElement.getRealDimensions().width;
+										}
+							
+										var isEntirelyVisible = (childOffsetWidth <= documentWidth);
+							
+										if (!isEntirelyVisible) {
+											//console.log('NOT In the viewport!');
+											parentElement.addClass('is-off-screen');
+										}
+										else {
+											//console.log('In the viewport!');
+											parentElement.removeClass('is-off-screen');
+										}
+									});
+									return this;
+								};
+							
+							
+								$.fn.overflowNavigation = function (container) {
+									var initElement = this;
+									var animationTimeout;
+							
+									window.addEventListener('resize', function (event) {
+										if (animationTimeout) {
+											window.cancelAnimationFrame(animationTimeout);
+										}
+							
+										animationTimeout = window.requestAnimationFrame(function () {
+											initElement.doubleTapToGo().setOffsetDirection(container).checkNavigationOverflow();
+										});
+									}, false);
+							
+									$displayButton.on('click', function () {
+										$hiddenLinks.toggleClass('is-hidden');
+										clearTimeout(timer);
+									});
+							
+									$hiddenLinks.on('mouseleave', function () {
+										// Mouse has left, start the timer
+										timer = setTimeout(function () {
+											$hiddenLinks.addClass('is-hidden');
+										}, closingTime);
+									}).on('mouseenter', function () {
+										// Mouse is back, cancel the timer
+										clearTimeout(timer);
+									});
+							
+									// close when clicking somewhere else
+									$('body').on('click', function (event) {
+										if ($(event.target).closest($.hook('overflow-navigation')).length === 0) {
+											$hiddenLinks.addClass('is-hidden');
+										}
+									});
+							
+									initElement.doubleTapToGo().setOffsetDirection(container).checkNavigationOverflow();
+								};
+							
+							})(jQuery, window, document);
+						--></code>
+					</pre>
+					<br>
+					<p>
+						<span class="c-heading-delta">Overlay Navigation</span>
+						<code class="x-inline-code u-font-small">THEME_NAME/extensions/navigation/overlay-navigation.css</code>
+					</p>
+					<pre class="language-markup">
+						<code><!--
+							/* ==========================================================================
+							   EXTENSIONS / NAVIGATION / OVERLAY NAVIGATION
+							   ========================================================================== */
+							
+							.x-overlay-navigation {
+								position: fixed;
+								top: 0;
+								right: 0;
+								bottom: 0;
+								left: 0;
+								overflow-y: auto;
+								background-color: rgba(0, 0, 0, 0.95);
+								opacity: 0;
+								transform: scale(0);
+								transform-origin: top;
+								transition: all ease-in-out 0.2s;
+								z-index: 500;
+							}
+							
+							.x-overlay-navigation--open {
+								opacity: 1;
+								transform: scale(1);
+							}
+							
+								.x-overlay-navigation__wrapper {
+									padding-top: 2.5vmax;
+									padding-bottom: 2.5vmax;
+								}
+							
+									.x-overlay-navigation__list {
+										margin-bottom: 2em;
+										margin-left: 0;
+										line-height: 2;
+										list-style: none;
+									}
+							
+										.x-overlay-navigation__list-subset {
+											margin-bottom: 1em;
+											margin-left: 1em;
+											padding-top: 0.5em;
+											font-size: 1rem;
+											font-weight: 400;
+										}
+							
+										.x-overlay-navigation__list-subset + .x-overlay-navigation__list-subset {
+											margin-left: 2em;
+										}
+							
+										.x-overlay-navigation__list a {
+											color: #fff;
+										}
+							
+											.x-overlay-navigation__item {
+												display: block;
+											}
+						--></code>
+					</pre>
+					<p><code class="x-inline-code u-font-small">THEME_NAME/extensions/navigation/overlay-navigation.html</code></p>
+					<pre class="language-markup">
+						<code><!--
+							<section class="x-overlay-navigation" data-hook="overlay-navigation">
+								<nav class="o-wrapper x-overlay-navigation__wrapper">
+									<p class="u-text-right">
+										<button class="c-button c-button--hollow u-color-white u-icon-cross" data-hook="close-overlay-navigation"></button>
+									</p>
+									<div class="o-layout u-grids-1 u-grids-2--s u-grids-3--m u-grids-4--l u-grids-5--w">
+										<mvt:foreach iterator="navigationitem" array="readytheme:navigationitems">
+											<ul class="o-layout__item x-overlay-navigation__list">
+												<li class="x-overlay-navigation__item c-heading-delta u-text-bold">
+													&mvt:navigationitem:link;
+													<mvt:if expr="NOT ISNULL l.settings:navigationitem:items">
+														<ul class="x-overlay-navigation__list x-overlay-navigation__list-subset">
+															<mvt:foreach iterator="navigationitem_level2" array="navigationitem:items">
+																<li class="x-overlay-navigation__item">
+																	&mvt:navigationitem_level2:link;
+																	<mvt:if expr="NOT ISNULL l.settings:navigationitem_level2:items">
+																		<ul class="x-overlay-navigation__list x-overlay-navigation__list-subset">
+																			<mvt:foreach iterator="navigationitem_level3" array="navigationitem_level2:items">
+																				<li class="x-overlay-navigation__item">&mvt:navigationitem_level3:link;</li>
+																			</mvt:foreach>
+																		</ul>
+																	</mvt:if>
+																</li>
+															</mvt:foreach>
+														</ul>
+													</mvt:if>
+												</li>
+											</ul>
+										</mvt:foreach>
+									</div>
+								</nav>
+							</section>
+						--></code>
+					</pre>
+					<p><code class="x-inline-code u-font-small">THEME_NAME/extensions/navigation/overlay-navigation.js</code></p>
+					<pre class="language-markup">
+						<code><!--
+							/**
+							 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+							 |o|v|e|r|l|a|y|N|a|v|i|g|a|t|i|o|n|
+							 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+							 *
+							 *
+							 */
+							
+							var overlayNavigation = (function (document) {
+								'use strict';
+							
+								var navigationElement = document.querySelector('[data-hook="overlay-navigation"]');
+								var openNavigationElement = document.querySelectorAll('[data-hook="open-overlay-navigation"]');
+								var closeNavigationElement = document.querySelector('[data-hook="close-overlay-navigation"]');
+								var publicMethods = {}; // Placeholder for public methods
+							
+								/**
+								 * Toggle the visibility of the mini-basket
+								 * @private
+								 */
+								var toggleMenu = function (event) {
+									event.preventDefault();
+									// Prevent window scrolling
+									document.documentElement.classList.toggle('u-overflow-hidden');
+									// Open the menu element
+									navigationElement.classList.toggle('x-overlay-navigation--open');
+								};
+							
+								/**
+								 * Toggle the visibility of the mini-basket
+								 * @public
+								 */
+								publicMethods.toggle = function (event) {
+									toggleMenu(event);
+								};
+							
+								/**
+								 * Initialize the plugin
+								 * @public
+								 */
+								publicMethods.init = function () {
+									// Open the overlay navigation when clicking any 'open' triggers
+									openNavigationElement.forEach(function (openNavigation) {
+										openNavigation.addEventListener('click', function (event) {
+											toggleMenu(event);
+										});
+									});
+							
+									// Close the overlay navigation when clicking the 'close' trigger
+									closeNavigationElement.addEventListener('click', function (event) {
+										toggleMenu(event);
+									});
+							
+									// Close the overlay navigation when clicking the background
+									navigationElement.addEventListener('click', function (event) {
+										if (event.target === this) {
+											toggleMenu(event);
+										}
+									}, false);
+							
+									// Close the overlay navigation when the `Esc` key is pressed
+									window.addEventListener('keydown', function (evt) {
+										if (evt.defaultPrevented) {
+											return; // Do nothing if the event was already processed
+										}
+							
+										switch (evt.key) {
+											case 'Escape':
+												// Do something for "esc" key press.
+												if (navigationElement.classList.contains('x-overlay-navigation--open')) {
+													toggleMenu(evt);
+												}
+												break;
+											default:
+												return; // Quit when this doesn't handle the key event.
+										}
+							
+										// Cancel the default action to avoid it being handled twice
+										evt.preventDefault();
+									}, true);
+								};
+							
+								/**
+								 * Public APIs
+								 */
+								return publicMethods.init();
+							
+							}(document));
+						--></code>
+					</pre>
 					<hr class="c-keyline">
 					
 					<h3 id="product-carousel"><span class="c-heading-charlie">Product Carousel</span></h3>
